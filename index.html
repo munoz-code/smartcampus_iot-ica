@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Campus IoT · Documentación</title>
+<meta name="description" content="Carpeta del proyecto institucional de 6to año: Smart Campus IoT, sistema distribuido de monitoreo ambiental, energético y operativo para la escuela.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=7">
+<script>
+  try { var t = localStorage.getItem("sc-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- Íconos (trazos estilo Lucide) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-desktop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-tablet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-reload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.4 6.4-1.5 6.4-7a5.4 5.4 0 0 0-1.5-3.7 5 5 0 0 0-.1-3.8s-1.2-.3-3.9 1.5a13.4 13.4 0 0 0-7 0C6.3 1.7 5.1 2 5.1 2a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 3.5 9.5c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" class="d-arrow"/></marker>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <button class="btn btn-icon menu-btn" id="menuBtn" aria-label="Abrir índice" aria-expanded="false" aria-controls="sidebar"><svg class="icon"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="#inicio">
+    <span class="brand-mark" aria-hidden="true">SC</span>
+    <span class="brand-text"><strong data-bind="nombre">Smart Campus IoT</strong><span><span data-bind="equipo"></span><span class="hide-sm"> · <span data-bind="curso"></span></span></span></span>
+  </a>
+  <span class="spacer"></span>
+  <a class="btn btn-primary" href="#ver-proyecto" aria-label="Ver el proyecto"><svg class="icon"><use href="#i-eye"/></svg><span class="btn-label">Ver proyecto</span></a>
+  <button class="btn btn-icon" id="themeBtn" aria-label="Cambiar tema claro u oscuro"><svg class="icon"><use href="#i-moon"/></svg></button>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Índice de la documentación">
+    <label class="search">
+      <span class="sr-only">Buscar en el índice</span>
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" id="navSearch" placeholder="Buscar en el índice…" autocomplete="off">
+    </label>
+    <div id="navList"></div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main id="contenido" tabindex="-1">
+
+<!-- ================================================================ PORTADA -->
+<section class="page" id="inicio" data-group="Inicio" data-title="Portada" data-num="">
+  <div class="hero">
+    <p class="eyebrow">Carpeta del proyecto · Proyecto institucional 6to año <span data-bind="ciclo"></span></p>
+    <h1 data-bind="nombre">Smart Campus IoT</h1>
+    <p class="lead" data-bind="bajada"></p>
+    <div class="flow" aria-label="Flujo de datos del sistema">
+      <span>Sensores</span><i>→</i><span>ESP32</span><i>→</i><span>WiFi</span><i>→</i><span>Broker MQTT</span><i>→</i><span>Backend / BD</span><i>→</i><span>Dashboard</span>
+    </div>
+    <div class="meta">
+      <div><b>Equipo</b><span data-bind="equipo"></span></div>
+      <div><b>Integrantes</b><span data-bind="apellidos"></span></div>
+      <div><b>Curso</b><span data-bind="curso"></span></div>
+      <div><b>Nodo asignado</b><span data-bind="nodoNombre"></span></div>
+      <div><b>Institución</b><span data-bind="institucion"></span></div>
+      <div><b>Estado del proyecto</b><span id="estadoPublicacion"></span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="#ver-proyecto"><svg class="icon"><use href="#i-eye"/></svg>Ver el proyecto</a>
+      <a class="btn" href="#gantt">Carta Gantt</a>
+      <a class="btn" href="#plano">Plano de diseño</a>
+      <a class="btn" href="#equipo">Equipo</a>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong><svg class="icon"><use href="#i-info"/></svg>Sobre este documento</strong>
+    <p>Esta es la <b>carpeta del proyecto</b>: reúne la planificación, el diseño técnico y el seguimiento del trabajo durante el año. Sigue los apartados de la <em>Documentación sugerida</em> de la propuesta ejecutiva del Proyecto Institucional 6to año 2026. Le suma dos análisis transversales: <b>Investigación Operativa</b> y <b>Seguridad Informática</b>.</p>
+    <p>Los recuadros amarillos marcan lo que <b>tiene que completar el equipo</b>.</p>
+  </div>
+
+  <h2>Recorrido sugerido</h2>
+  <div class="grid quick">
+    <a class="card" href="#objetivo"><h3>1 · Presentación</h3><p>Objetivo, problema, alcances, equipo y asignaturas.</p></a>
+    <a class="card" href="#scrum"><h3>2 · Planificación</h3><p>Scrum, sprints, carta Gantt y entregables.</p></a>
+    <a class="card" href="#arquitectura"><h3>3 · Diseño técnico</h3><p>Arquitectura, plano, componentes, firmware, servidor y dashboard.</p></a>
+    <a class="card" href="#presupuesto"><h3>4 · Seguimiento</h3><p>Presupuesto, bitácora de pruebas y resultados.</p></a>
+    <a class="card quick-guia" href="#guia"><h3>Guía de uso</h3><p>Cómo editar, completar y publicar esta documentación.</p></a>
+  </div>
+</section>
+
+<!-- ================================================================ VER PROYECTO -->
+<section class="page" id="ver-proyecto" data-group="Inicio" data-title="Ver el proyecto" data-num="">
+  <p class="eyebrow">Proyecto en vivo</p>
+  <h1>Ver el proyecto</h1>
+  <p class="lead">Vista previa del dashboard del equipo. Pueden probar cómo se ve en una computadora, una tablet o un celular.</p>
+
+  <div class="viewer" id="viewer">
+    <div class="viewer-bar">
+      <form class="viewer-url" id="viewerForm">
+        <label class="sr-only" for="viewerInput">Dirección del proyecto</label>
+        <input id="viewerInput" type="url" placeholder="https://usuario.github.io/smart-campus/" inputmode="url">
+        <button class="btn" type="submit">Cargar</button>
+      </form>
+      <div class="seg" role="group" aria-label="Tamaño de pantalla">
+        <button type="button" data-w="100%" aria-pressed="true" aria-label="Escritorio"><svg class="icon"><use href="#i-desktop"/></svg></button>
+        <button type="button" data-w="768px" aria-pressed="false" aria-label="Tablet (768 px)"><svg class="icon"><use href="#i-tablet"/></svg></button>
+        <button type="button" data-w="375px" aria-pressed="false" aria-label="Celular (375 px)"><svg class="icon"><use href="#i-phone"/></svg></button>
+      </div>
+      <button class="btn btn-icon" type="button" id="viewerReload" aria-label="Recargar vista previa"><svg class="icon"><use href="#i-reload"/></svg></button>
+      <a class="btn btn-icon" id="viewerOpen" href="#" target="_blank" rel="noopener" aria-label="Abrir en una pestaña nueva"><svg class="icon"><use href="#i-ext"/></svg></a>
+    </div>
+    <div class="viewer-stage" id="viewerStage">
+      <div class="viewer-empty" id="viewerEmpty">
+        <svg class="big" aria-hidden="true"><use href="#i-desktop"/></svg>
+        <h3>El proyecto todavía no está publicado</h3>
+        <p>Cuando el dashboard tenga una dirección pública, cárguenla en <code>previewUrl</code> dentro de <code>assets/js/datos.js</code> y se va a ver acá.</p>
+        <p>Mientras tanto pueden escribir una dirección arriba para probar el visor (solo queda guardada en este navegador).</p>
+        <p><a href="#guia">¿Cómo publico el proyecto?</a></p>
+      </div>
+      <iframe class="viewer-frame" id="viewerFrame" title="Vista previa del proyecto" hidden loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong><svg class="icon"><use href="#i-info"/></svg>Si la vista previa queda en blanco</strong>
+    <p>Algunos servicios no permiten mostrarse dentro de otra página (encabezado <code>X-Frame-Options</code>). En ese caso usen el botón <b>Abrir en una pestaña nueva</b>. Si el dashboard está hecho en Grafana, hay que habilitar <code>allow_embedding = true</code> en <code>grafana.ini</code>.</p>
+  </div>
+
+  <h2>Accesos</h2>
+  <div class="grid-2">
+    <div class="card"><h3 style="margin-top:0">Dashboard publicado</h3><p id="accesoPreview"></p></div>
+    <div class="card"><h3 style="margin-top:0">Repositorio del código</h3><p id="accesoRepo"></p></div>
+  </div>
+</section>
+
+<!-- ================================================================ 1 CONTROL DE CAMBIOS -->
+<section class="page" id="cambios" data-group="1 · Presentación" data-title="Control de cambios" data-num="1">
+  <p class="eyebrow">Primera sección</p>
+  <h1>1. Control de cambios</h1>
+  <p class="lead">Registro de las modificaciones de la documentación y del alcance del proyecto. Cada vez que el equipo, el Product Owner o el auditor aprueban un cambio, se agrega una fila nueva.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Versión</th><th>Fecha</th><th>Responsable</th><th>Detalle del cambio</th></tr></thead>
+    <tbody id="tablaCambios"></tbody>
+  </table></div>
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Las filas se editan en <code>datos.js → cambios</code>. Una fila por cada cambio de alcance, de diseño o de planificación. Anoten la fecha real del cambio.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 2 OBJETIVO -->
+<section class="page" id="objetivo" data-group="1 · Presentación" data-title="Objetivo y visión general" data-num="2">
+  <p class="eyebrow">Primera sección</p>
+  <h1>2. Objetivo y visión general</h1>
+  <h2>Objetivo</h2>
+  <p>Diseñar, construir e implementar un sistema tecnológico integral basado en <b>ESP32</b>, capaz de relevar variables del entorno escolar en tiempo real, procesarlas, almacenarlas y visualizarlas en un tablero central.</p>
+  <p>El equipo trabaja como un equipo profesional de ingeniería: desarrolla un producto <b>real, escalable y demostrable</b>, presentado como una plataforma institucional con módulos reales.</p>
+
+  <h2>Visión general</h2>
+  <p>Se monta una red de <b>nodos inteligentes</b> distribuidos en distintos sectores de la escuela. Cada nodo, construido con un ESP32 y sensores, mide el ambiente, muestra los valores en su display LCD y envía los datos por WiFi a un <b>servidor central</b>. El servidor recibe, procesa y guarda los datos, y los publica en un <b>dashboard web</b> que se puede ver desde una PC, una notebook o una pantalla institucional.</p>
+
+  <h3>Variables que puede monitorear el sistema</h3>
+  <div class="grid">
+    <div class="card"><b>Ambiente</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Temperatura, humedad, luminosidad, calidad de aire (CO).</p></div>
+    <div class="card"><b>Uso de los espacios</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Presencia, nivel sonoro (dB), estado de un aula o laboratorio.</p></div>
+    <div class="card"><b>Exterior y energía</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Humedad de suelo de la huerta, consumo eléctrico básico.</p></div>
+    <div class="card"><b>Infraestructura</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Estado de la red de datos (latencia y señal WiFi).</p></div>
+  </div>
+
+  <h3>Módulos del sistema</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Módulo</th><th>Qué mide o muestra</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Monitoreo ambiental de aulas</td><td>Temperatura, humedad, luz, presencia</td></tr>
+      <tr><td>2 · Monitoreo de laboratorio</td><td>Temperatura, humedad, ruido, estado del espacio</td></tr>
+      <tr><td>3 · Exterior / huerta</td><td>Temperatura exterior, humedad de suelo, luz ambiente</td></tr>
+      <tr><td>4 · Tablero central institucional</td><td>Dashboard general, ranking por estado, semáforo por sectores, histórico</td></tr>
+      <tr><td>5 · Alertas</td><td>Alta temperatura, humedad fuera de rango, nodo desconectado</td></tr>
+    </tbody>
+  </table></div>
+<h2>Objetivo de nuestro nodo (calidad de aire)</h2>
+<p>Construir un nodo con ESP32 que mide temperatura, humedad y calidad de aire, muestra los valores en un display LCD, los envía por WiFi a un broker MQTT y los publica en un dashboard web. El nodo se instala en el Aula Taller.</p>
+<div class="grid"><div class="card"><b>Temperatura</b><p>DHT22. Lectura cada 5 s, publicación cada 10 s.</p></div><div class="card"><b>Humedad relativa</b><p>DHT22, mismo ciclo que la temperatura.</p></div><div class="card"><b>Calidad de aire</b><p>MQ-135 por salida analógica, informada como índice ICA de 0 a 500.</p></div><div class="card"><b>Estado de red</b><p>El LCD indica si WiFi y MQTT están conectados (W+/W-, M+/M-).</p></div></div></section>
+
+<!-- ================================================================ 3 PROBLEMA -->
+<section class="page" id="problema" data-group="1 · Presentación" data-title="Problema a resolver" data-num="3">
+  <p class="eyebrow">Primera sección</p>
+  <h1>3. Problema a resolver</h1>
+  <p class="lead">La escuela no tiene un sistema centralizado para observar las variables importantes de sus espacios. Hoy se decide "a ojo".</p>
+  <h2>Lo que hoy no se sabe</h2>
+  <ul>
+    <li>Qué aulas tienen peor ventilación.</li>
+    <li>Qué laboratorio tiene mayor temperatura.</li>
+    <li>Qué sectores quedan encendidos o activos fuera de horario.</li>
+    <li>Qué condiciones ambientales afectan el trabajo o el aprendizaje.</li>
+    <li>Cómo tomar decisiones con datos reales.</li>
+  </ul>
+  <h2>Qué aporta la solución</h2>
+  <p>El proyecto transforma esos <b>datos invisibles</b> en <b>información útil y visible</b>, tal como lo hace un sistema BMS (<i>Building Management System</i>) profesional en un edificio real.</p>
+  <div class="callout">
+    <strong><svg class="icon"><use href="#i-info"/></svg>Meta final</strong>
+    <p>Demostrar que la escuela puede tomar decisiones a partir de datos reales.</p>
+  </div>
+  <h2>Problema de nuestro nodo</h2>
+<h3>Sector donde se instala</h3><p>El nodo se instala en el Aula Taller, un espacio cerrado donde el grupo pasa muchas horas y donde importa controlar cómo está el ambiente.</p>
+<h3>Qué se observaba antes</h3><p>No había forma de medir el ambiente, así que se decidía por sensación. No se sabía qué tan mal se ventilaba el aula ni cuándo la temperatura o la humedad salían de un rango razonable.</p>
+<h3>Qué decisión puede tomar la escuela</h3><p>Con la pantalla del nodo y los gráficos del dashboard, la escuela puede abrir las ventanas cuando el aire está cargado o regular mejor la temperatura y la humedad para que el espacio sea más cómodo.</p>
+</section>
+
+<!-- ================================================================ 4 ALCANCES -->
+<section class="page" id="alcances" data-group="1 · Presentación" data-title="Alcances" data-num="4">
+  <p class="eyebrow">Primera sección</p>
+  <h1>4. Alcances</h1>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">El proyecto incluye</h3>
+      <ul class="checklist">
+        <li>Diseño de nodos IoT basados en ESP32</li>
+        <li>Selección, montaje y prueba de sensores</li>
+        <li>Programación del firmware</li>
+        <li>Comunicación por red</li>
+        <li>Servidor Linux con broker MQTT y servicios asociados</li>
+        <li>Base de datos para registro histórico</li>
+        <li>Dashboard web</li>
+        <li>Diseño del gabinete del nodo</li>
+        <li>Documentación técnica y funcional</li>
+        <li>Presentación final con prototipo operativo</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">No incluye (primera etapa)</h3>
+      <ul>
+        <li>Automatización crítica</li>
+        <li>Control de cargas peligrosas</li>
+        <li>Actuación sobre la red eléctrica de la institución</li>
+        <li>Integración con sistemas institucionales sensibles</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Niveles de complejidad</h2>
+  <div class="grid-2">
+    <div class="card area-card a-desarrollo">
+      <span class="tag a-desarrollo">Nivel 1 · obligatorio</span>
+      <h3>Todos los equipos</h3>
+      <ul><li>ESP32 conectado</li><li>Lectura de al menos 2 variables</li><li>Envío por MQTT</li><li>Visualización en el dashboard</li></ul>
+    </div>
+    <div class="card area-card a-aplicaciones">
+      <span class="tag a-aplicaciones">Nivel 2 · ampliación</span>
+      <h3>Equipos que avanzan más</h3>
+      <ul><li>Gabinete definitivo</li><li>Actualización OTA (<i>Over-The-Air</i>)</li><li>Histórico avanzado y alertas</li><li>Módulo exterior o de consumo energético</li><li>Análisis estadístico</li></ul>
+    </div>
+  </div>
+<h2>Alcance de nuestro nodo</h2><div class="grid-2"><div class="card"><h3 style="margin-top:0">Incluye</h3><ul class="checklist"><li>Nodo IoT con ESP32 y dos sensores (DHT22 y MQ-135)</li><li>Display LCD 16x2 por I2C</li><li>Firmware con reconexión automática a WiFi y MQTT</li><li>Publicación por MQTT en tópicos propios del grupo</li><li>Dashboard web con tarjetas y gráficos</li><li>Placa soldada, gabinete y documentación</li><li>Calibración del MQ-135 en aire limpio (índice ICA)</li></ul></div><div class="card"><h3 style="margin-top:0">No incluye (primera etapa)</h3><ul><li>Automatización crítica ni actuadores</li><li>Conversión del MQ-135 a ppm reales (ver el apartado 13)</li><li>Actualización OTA</li></ul></div></div>
+<h3>Nivel de complejidad alcanzado</h3><div class="table-wrap"><table><thead><tr><th>Nivel</th><th>Requisitos</th><th>Estado</th></tr></thead><tbody><tr><td>1 · obligatorio</td><td>ESP32 conectado, 2 variables o más, envío por MQTT, visualización en el dashboard</td><td>Cumplido: el reporte de datos al dashboard se probó con éxito el 23/10</td></tr><tr><td>2 · ampliación</td><td>Gabinete definitivo, OTA, histórico avanzado y alertas</td><td>Parcial: caja estanca cortada y alertas por umbral en la web; OTA sin implementar</td></tr></tbody></table></div></section>
+
+<!-- ================================================================ 5 EQUIPO -->
+<section class="page" id="equipo" data-group="1 · Presentación" data-title="Equipo e integrantes" data-num="5">
+  <p class="eyebrow">Primera sección</p>
+  <h1>5. Equipo e integrantes</h1>
+  <p class="lead"><span data-bind="equipo"></span> · <span data-bind="curso"></span> · Nodo asignado: <b data-bind="nodoNombre"></b></p>
+
+  <h2>Integrantes</h2>
+  <div class="grid" id="listaIntegrantes"></div>
+
+  <h2>Roles dentro del equipo</h2>
+  <div class="grid-2" id="listaRoles"></div>
+
+  <h2>Organización y reportes</h2>
+  <figure class="diagram fit">
+    <svg viewBox="0 0 640 230" role="img" aria-labelledby="orgT">
+      <title id="orgT">Organigrama: el Project Manager reporta al auditor y coordina a Desarrollo, Aplicaciones e Infraestructura</title>
+      <rect class="d-box" x="230" y="10" width="180" height="44" rx="8"/><text class="d-title" x="320" y="30" text-anchor="middle">Auditor de proyectos</text><text class="d-small" x="320" y="46" text-anchor="middle">docente · Product Owner</text>
+      <rect class="d-accent" x="230" y="88" width="180" height="44" rx="8"/><text class="d-title" x="320" y="108" text-anchor="middle">Project Manager</text><text class="d-small" x="320" y="124" text-anchor="middle">Scrum Master</text>
+      <path class="d-line" d="M320 88 V54" marker-end="url(#arrow)"/><text class="d-small" x="330" y="76">reporta</text>
+      <path class="d-line" d="M320 132 V156 M100 156 H540 M100 156 V172 M320 156 V172 M540 156 V172"/>
+      <rect class="d-box" x="20" y="172" width="160" height="44" rx="8"/><text class="d-title" x="100" y="192" text-anchor="middle">Desarrollo</text><text class="d-small" x="100" y="208" text-anchor="middle">firmware ESP32</text>
+      <rect class="d-box" x="240" y="172" width="160" height="44" rx="8"/><text class="d-title" x="320" y="192" text-anchor="middle">Aplicaciones</text><text class="d-small" x="320" y="208" text-anchor="middle">dashboard</text>
+      <rect class="d-box" x="460" y="172" width="160" height="44" rx="8"/><text class="d-title" x="540" y="192" text-anchor="middle">Infraestructura</text><text class="d-small" x="540" y="208" text-anchor="middle">servidor · red · nodo</text>
+    </svg>
+    <figcaption>El Project Manager reporta los avances al auditor de los proyectos. El equipo de desarrollo (Desarrollo, Aplicaciones e Infraestructura) se organiza de manera autónoma.</figcaption>
+  </figure>
+
+  <h2>Docentes</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Asignatura</th><th>Docente</th></tr></thead>
+    <tbody id="tablaDocentes"></tbody>
+  </table></div>
+  <p><b>Auditor de los proyectos:</b> <span data-bind="auditor"></span></p>
+
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Carguen sus nombres, roles y fotos en <code>datos.js → integrantes</code>. Las fotos van en <code>assets/img/integrantes/</code> (cuadradas, 400 × 400 px, formato .jpg o .webp). Si no hay foto se muestran las iniciales.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 6 ASIGNATURAS -->
+<section class="page" id="asignaturas" data-group="1 · Presentación" data-title="Asignaturas involucradas" data-num="6">
+  <p class="eyebrow">Primera sección</p>
+  <h1>6. Asignaturas involucradas</h1>
+  <p class="lead">El proyecto es interdisciplinario: cada asignatura aporta una parte del mismo producto. En la defensa final cada parte se explica por separado, pero todo funciona conectado.</p>
+  <div class="grid-2">
+    <div class="card area-card a-hardware">
+      <span class="tag a-hardware">Laboratorio de Hardware</span>
+      <h3>Diseño y construcción física del nodo</h3>
+      <ul><li>Selección de sensores y lectura de datasheets</li><li>Diseño del circuito, protoboard y versión definitiva</li><li>Soldado, montaje, gabinete y alimentación</li></ul>
+      <p><b>Productos:</b> prototipo físico, esquema eléctrico, lista de materiales, instructivo de armado.</p>
+    </div>
+    <div class="card area-card a-so">
+      <span class="tag a-so">Laboratorio de Sistemas Operativos</span>
+      <h3>Plataforma central</h3>
+      <ul><li>Servidor Linux, red, usuarios y acceso remoto</li><li>Docker o servicios nativos: broker MQTT, base de datos, servicio web</li><li>Monitoreo, backup y restauración</li></ul>
+      <p><b>Productos:</b> servidor documentado, diagrama de servicios, manual de instalación, procedimiento de recuperación.</p>
+    </div>
+    <div class="card area-card a-aplicaciones">
+      <span class="tag a-aplicaciones">Laboratorio de Aplicaciones</span>
+      <h3>Interfaz y visualización de datos</h3>
+      <ul><li>Diseño del dashboard y experiencia de usuario</li><li>Tiempo real, gráficos históricos, tarjetas por sector</li><li>Alarmas visuales e identidad visual del proyecto</li></ul>
+      <p><b>Productos:</b> dashboard navegable, maqueta UX/UI, vista responsive, panel de alertas.</p>
+    </div>
+    <div class="card area-card a-desarrollo">
+      <span class="tag a-desarrollo">Desarrollo de Software</span>
+      <h3>Firmware y lógica del nodo</h3>
+      <ul><li>Programación del ESP32 y lectura de sensores</li><li>Publicación MQTT, reconexión automática, validación de datos</li><li>Manejo de errores y OTA opcional</li></ul>
+      <p><b>Productos:</b> firmware modular, librerías reutilizables, documento de tópicos MQTT.</p>
+    </div>
+    <div class="card area-card a-io">
+      <span class="tag a-io">Investigación Operativa</span>
+      <h3>Decisiones con modelos</h3>
+      <ul><li>Red PERT/CPM y camino crítico del proyecto</li><li>Matriz de decisión para elegir sensores</li><li>Optimización del presupuesto y la ubicación de nodos</li></ul>
+      <p><b>Productos:</b> red del proyecto con holguras, matriz de decisión justificada, modelo de optimización.</p>
+    </div>
+    <div class="card area-card a-seginfo">
+      <span class="tag a-seginfo">Seguridad Informática</span>
+      <h3>Proteger el sistema y los datos</h3>
+      <ul><li>Inventario de activos y matriz de riesgos</li><li>Seguridad física del nodo y seguridad lógica del servidor</li><li>Protección del broker, credenciales y marco legal</li></ul>
+      <p><b>Productos:</b> matriz de riesgos, plan de controles, checklist de hardening, informe de auditoría.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 7 SCRUM -->
+<section class="page" id="scrum" data-group="2 · Planificación" data-title="Planificación y Scrum" data-num="7">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>7. Planificación y metodología Scrum</h1>
+  <p class="lead">Planificar es pensar antes de actuar: definir qué se quiere lograr, qué recursos hacen falta, qué pasos seguir, en qué orden, y cómo controlar si el trabajo avanza bien.</p>
+  <p>Una buena planificación hace que el proyecto no dependa de la improvisación: el equipo analiza la necesidad, define objetivos, reparte tareas, elige materiales y herramientas, estima tiempos, prevé problemas y establece criterios para evaluar el resultado.</p>
+
+  <h2>Scrum en el proyecto</h2>
+  <p><b>Scrum</b> es un marco de trabajo ágil que organiza el trabajo en ciclos cortos llamados <b>sprints</b>. En cada sprint el equipo planifica, desarrolla, revisa y mejora para entregar valor de forma rápida y controlada.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rol Scrum</th><th>Quién lo cumple</th><th>Qué hace</th></tr></thead>
+    <tbody>
+      <tr><td><b>Product Owner</b></td><td>Auditor de los proyectos (todos los docentes)</td><td>Representa la visión de la escuela como cliente. Define el objetivo del sprint y acepta o rechaza los entregables.</td></tr>
+      <tr><td><b>Scrum Master</b></td><td>Project Manager del equipo</td><td>Cuida que el equipo siga las prácticas acordadas, elimina obstáculos y reporta al auditor.</td></tr>
+      <tr><td><b>Equipo de desarrollo</b></td><td>Desarrollo, Aplicaciones, Infraestructura</td><td>Construye el producto y se organiza de forma autónoma para cumplir la meta del sprint.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Ciclo de un sprint</h2>
+  <div class="grid">
+    <div class="card"><span class="tag a-pm">1 · Planificación</span><p style="color:var(--text-2);font-size:14.5px">¿Qué vamos a entregar y cómo lo vamos a hacer? Se fija una meta clara.</p></div>
+    <div class="card"><span class="tag a-desarrollo">2 · Desarrollo</span><p style="color:var(--text-2);font-size:14.5px">No se hacen cambios que pongan en riesgo la meta. Se mantienen los estándares de calidad.</p></div>
+    <div class="card"><span class="tag a-aplicaciones">3 · Revisión</span><p style="color:var(--text-2);font-size:14.5px">Se muestra lo hecho al Product Owner, que da feedback y acepta o no el entregable.</p></div>
+    <div class="card"><span class="tag a-io">4 · Retrospectiva</span><p style="color:var(--text-2);font-size:14.5px">El equipo analiza cómo trabajó, qué problemas hubo y qué mejora en el próximo ciclo.</p></div>
+  </div>
+  <p>Un sprint dura entre 1 y 4 semanas y nunca más de un mes. En este proyecto se usan sprints de <b><span data-bind="semanasPorSprint"></span> semanas</b> (se ven en la <a href="#gantt">carta Gantt</a>).</p>
+
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Para cada sprint registren en la <a href="#pruebas">bitácora</a>: meta del sprint, tareas comprometidas, qué se entregó y la conclusión de la retrospectiva.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 8 GANTT -->
+<section class="page" id="gantt" data-group="2 · Planificación" data-title="Carta Gantt" data-num="8">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>8. Carta Gantt</h1>
+  <p class="lead">Cronograma anual de marzo a noviembre: seis etapas, tareas por área, sprints, hitos de entrega y la fecha de hoy.</p>
+
+  <h2>8.1 Gantt del equipo (Google Sheets)</h2>
+  <p>El equipo lleva su carta Gantt en una planilla de Google Sheets y la muestra acá embebida, así siempre se ve la versión actualizada.</p>
+  <div class="sheet" id="sheet">
+    <div class="sheet-bar">
+      <span class="status off" id="sheetEstado">Sin planilla</span>
+      <span class="spacer"></span>
+      <a class="btn" id="sheetOpen" target="_blank" rel="noopener" hidden><svg class="icon"><use href="#i-ext"/></svg>Abrir en Sheets</a>
+    </div>
+    <div class="sheet-empty" id="sheetEmpty">
+      <svg class="big" aria-hidden="true"><use href="#i-table"/></svg>
+      <h3>Falta embeber la planilla de la Gantt</h3>
+      <p>Publiquen la planilla y peguen el enlace en <code>ganttSheetUrl</code> dentro de <code>assets/js/datos.js</code>.</p>
+      <ol class="steps">
+        <li><div>En Google Sheets: <b>Archivo → Compartir → Publicar en la Web</b>.</div></li>
+        <li><div>Elijan la hoja de la Gantt, la pestaña <b>Insertar</b> y presionen <b>Publicar</b>.</div></li>
+        <li><div>Copien la dirección que está dentro de <code>src="…"</code> (termina en <code>/pubhtml?…</code>) y péguenla en <code>ganttSheetUrl</code>.</div></li>
+      </ol>
+    </div>
+    <iframe class="sheet-frame" id="sheetFrame" title="Carta Gantt del equipo en Google Sheets" hidden loading="lazy"></iframe>
+  </div>
+
+  <h2>8.2 Cronograma de referencia</h2>
+  <p>Planificación institucional sugerida. Sirve de base para armar la Gantt del equipo.</p>
+  <div class="gantt-legend" id="ganttLegend"></div>
+  <div class="gantt" id="gantt-chart" tabindex="0" aria-label="Carta Gantt, se puede desplazar horizontalmente"></div>
+  <p style="font-size:13.5px;color:var(--text-2)">◆ Hito / entregable · Línea roja: hoy · Rayado: receso invernal. En pantallas chicas la tabla se desplaza hacia el costado.</p>
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Mantengan la Gantt actualizada en la planilla de Google Sheets. Si quieren cambiar el cronograma de referencia, editen <code>datos.js → gantt</code>. Si una tarea se atrasa, actualicen la fecha de fin y anoten el cambio en el <a href="#cambios">control de cambios</a>.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 9 ENTREGABLES -->
+<section class="page" id="entregables" data-group="2 · Planificación" data-title="Entregables e hitos" data-num="9">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>9. Entregables e hitos</h1>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Etapa</th><th>Período</th><th>Entregable</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Lanzamiento y análisis</td><td>Marzo – Abril</td><td>Anteproyecto, diagrama inicial, propuesta de módulos</td></tr>
+      <tr><td>2 · Diseño técnico</td><td>Abril – Mayo</td><td>Diseño del nodo, plan técnico por laboratorio, primer BOM</td></tr>
+      <tr><td>3 · Prototipo funcional</td><td>Junio – Julio</td><td>Demo parcial funcional</td></tr>
+      <tr><td>4 · Integración</td><td>Agosto – Septiembre</td><td>Versión beta del sistema</td></tr>
+      <tr><td>5 · Producto final</td><td>Octubre</td><td>Versión candidata final</td></tr>
+      <tr><td>6 · Presentación y defensa</td><td>Noviembre</td><td>Producto final, documentación completa, exposición</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">Entregables mínimos</h3>
+      <ul class="checklist">
+        <li>Carpeta del proyecto (este sitio)</li><li>Documento técnico general</li><li>Diagrama de arquitectura</li><li>Esquema eléctrico</li><li>Firmware comentado</li>
+        <li>Dashboard operativo</li><li>Servidor documentado</li><li>Lista de materiales</li><li>Bitácora de pruebas</li><li>Presentación final</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Entregables opcionales</h3>
+      <ul><li>Video demo</li><li>Manual de usuario</li><li>Maqueta 3D del gabinete</li><li>Sitio web del proyecto</li><li>Identidad gráfica y logo</li></ul>
+      <h3>Presentación tipo feria</h3>
+      <ul><li>Puesto central de monitoreo con el sistema en tiempo real</li><li>Afiche o panel, video breve</li><li>Defensa interdisciplinaria</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 10 ARQUITECTURA -->
+<section class="page" id="arquitectura" data-group="3 · Diseño técnico" data-title="Arquitectura del sistema" data-num="10">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>10. Arquitectura del sistema</h1>
+  <p class="lead">Recorrido de un dato desde que lo mide el sensor hasta que aparece en el dashboard, y qué asignatura es responsable de cada tramo.</p>
+  <figure class="diagram">
+    <svg class="arq" viewBox="0 0 910 252" role="img" aria-labelledby="arqT">
+      <title id="arqT">Flujo lógico: sensores, ESP32, WiFi, broker MQTT, backend y base de datos, dashboard</title>
+      <rect class="d-dash" x="6" y="8" width="898" height="140" rx="12"/>
+      <text class="d-small" x="20" y="28" style="fill:var(--a-seginfo)">SEGURIDAD INFORMÁTICA · usuarios, ACL, TLS, hardening y backups en todo el recorrido</text>
+      <g>
+        <rect class="d-box" x="20" y="46" width="120" height="64" rx="8"/><text class="d-title" x="80" y="74" text-anchor="middle">Sensores</text><text class="d-small" x="80" y="91" text-anchor="middle">DHT22 + específico</text>
+        <rect class="d-accent" x="170" y="46" width="120" height="64" rx="8"/><text class="d-title" x="230" y="74" text-anchor="middle">ESP32 + LCD</text><text class="d-small" x="230" y="91" text-anchor="middle">firmware</text>
+        <rect class="d-box" x="320" y="46" width="120" height="64" rx="8"/><text class="d-title" x="380" y="74" text-anchor="middle">Red WiFi</text><text class="d-small" x="380" y="91" text-anchor="middle">WPA2 · red IoT</text>
+        <rect class="d-box" x="470" y="46" width="120" height="64" rx="8"/><text class="d-title" x="530" y="74" text-anchor="middle">Broker MQTT</text><text class="d-small" x="530" y="91" text-anchor="middle">Mosquitto</text>
+        <rect class="d-box" x="620" y="46" width="120" height="64" rx="8"/><text class="d-title" x="680" y="74" text-anchor="middle">Backend + BD</text><text class="d-small" x="680" y="91" text-anchor="middle">Node-RED · InfluxDB</text>
+        <rect class="d-box" x="770" y="46" width="120" height="64" rx="8"/><text class="d-title" x="830" y="74" text-anchor="middle">Dashboard</text><text class="d-small" x="830" y="91" text-anchor="middle">web / Grafana</text>
+      </g>
+      <!-- flujo de datos: trazos que avanzan a velocidad constante -->
+      <g class="flow-lines">
+        <path class="flow-line" d="M142 78 H165" marker-end="url(#arrow)"/><path class="flow-line" d="M292 78 H315" marker-end="url(#arrow)"/>
+        <path class="flow-line" d="M442 78 H465" marker-end="url(#arrow)"/><path class="flow-line" d="M592 78 H615" marker-end="url(#arrow)"/><path class="flow-line" d="M742 78 H765" marker-end="url(#arrow)"/>
+      </g>
+      <!-- responsabilidades por asignatura -->
+      <g class="resp">
+        <path d="M20 172 H290" style="stroke:var(--a-hardware)"/><text x="20" y="190" style="fill:var(--a-hardware)">LAB. HARDWARE · nodo físico</text>
+        <path d="M320 172 H740" style="stroke:var(--a-so)"/><text x="320" y="190" style="fill:var(--a-so)">LAB. SISTEMAS OPERATIVOS · red, servidor y servicios</text>
+        <path d="M770 172 H890" style="stroke:var(--a-aplicaciones)"/><text x="770" y="190" style="fill:var(--a-aplicaciones)">LAB. APLICACIONES</text>
+        <path d="M170 220 H590" style="stroke:var(--a-desarrollo)"/><text x="170" y="238" style="fill:var(--a-desarrollo)">DESARROLLO DE SOFTWARE · firmware y mensajes MQTT</text>
+      </g>
+    </svg>
+    <figcaption>Sensores → ESP32 → WiFi → Broker MQTT → Backend / Base de datos → Dashboard.</figcaption>
+  </figure>
+
+  <h2>Topología</h2>
+  <p>Topología en <b>estrella</b>: todos los nodos IoT se comunican con un único servidor central, que concentra la base de datos. Si un nodo falla, el resto sigue funcionando; si falla el servidor, se detiene el registro (por eso importan los backups y la reconexión automática).</p>
+  <h2>Plataforma central (primera implementación)</h2>
+  <p>Linux + Mosquitto + Node-RED o Grafana, con un dashboard web que muestra el estado por sector.</p>
+<div class="callout"><strong>Cómo lo implementa nuestro nodo</strong><p>Sensores (DHT22 y MQ-135) → ESP32 → WiFi → broker Mosquitto del laboratorio → dashboard web. Por ahora el dashboard recibe los datos del broker y no hay una base de datos histórica propia.</p></div><div class="callout todo"><strong>A completar por el equipo</strong><p>Si el equipo de Infraestructura agrega base de datos o servidor propio, actualicen este apartado y el diagrama.</p></div></section>
+
+<!-- ================================================================ 11 PLANO -->
+<section class="page" id="plano" data-group="3 · Diseño técnico" data-title="Plano de diseño" data-num="11">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>11. Plano de diseño</h1>
+  <p class="lead">Plano del nodo IoT (vista frontal e interior), conexiones eléctricas y mapa de ubicación de los nodos en la escuela.</p>
+
+  <h2>11.1 Plano del nodo</h2>
+  <figure class="diagram blueprint">
+    <svg viewBox="0 0 900 360" role="img" aria-labelledby="planoT">
+      <title id="planoT">Plano del gabinete del nodo: vista frontal con display LCD y vista interior con los componentes numerados</title>
+      <defs><pattern id="bpgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#1f4d7e" stroke-width=".6"/></pattern></defs>
+      <rect width="900" height="360" fill="url(#bpgrid)"/>
+      <text class="d-small" x="60" y="40">VISTA FRONTAL</text>
+      <rect class="d-box" x="60" y="60" width="300" height="200" rx="10" stroke-width="2"/>
+      <rect class="d-accent" x="100" y="96" width="220" height="74" rx="4"/>
+      <text class="d-text" x="210" y="128" text-anchor="middle" font-family="monospace">T:23.4C H:48%</text>
+      <text class="d-text" x="210" y="150" text-anchor="middle" font-family="monospace">CO: 12ppm  OK</text>
+      <circle cx="334" cy="84" r="6" fill="#4ade80"/><text class="d-small" x="322" y="88" text-anchor="end">LED estado</text>
+      <g class="d-line">
+        <path d="M110 206 v34 M126 206 v34 M142 206 v34 M158 206 v34 M174 206 v34 M190 206 v34"/>
+      </g>
+      <text class="d-small" x="150" y="200" text-anchor="middle">rejilla (DHT22)</text>
+      <circle class="d-box" cx="290" cy="222" r="18"/><text class="d-small" x="290" y="254" text-anchor="middle">sensor específico</text>
+      <!-- cotas -->
+      <path class="d-line" d="M60 288 H360" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text class="d-text" x="210" y="306" text-anchor="middle">120 mm</text>
+      <path class="d-line" d="M34 60 V260" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text class="d-text" x="28" y="164" text-anchor="middle" transform="rotate(-90 28 164)">80 mm</text>
+      <text class="d-small" x="60" y="336">Profundidad: 55 mm · Material: gabinete plástico ABS con tapa atornillada</text>
+
+      <text class="d-small" x="410" y="40">VISTA INTERIOR (sin tapa)</text>
+      <rect class="d-box" x="410" y="60" width="300" height="200" rx="10" stroke-width="2"/>
+      <rect class="d-dash" x="418" y="166" width="284" height="86" rx="4"/>
+      <rect class="d-box" x="424" y="72" width="170" height="80" rx="4"/><text class="d-text" x="509" y="116" text-anchor="middle">Batería 12 V</text>
+      <rect class="d-box" x="606" y="72" width="94" height="40" rx="4"/><text class="d-small" x="653" y="96" text-anchor="middle">LM2596</text>
+      <rect class="d-box" x="606" y="120" width="94" height="32" rx="4"/><text class="d-small" x="653" y="140" text-anchor="middle">borneras</text>
+      <rect class="d-accent" x="428" y="176" width="96" height="68" rx="4"/><text class="d-text" x="476" y="214" text-anchor="middle">ESP32</text>
+      <rect class="d-box" x="536" y="176" width="54" height="68" rx="4"/><text class="d-small" x="563" y="214" text-anchor="middle">DHT22</text>
+      <rect class="d-box" x="602" y="176" width="92" height="68" rx="4"/><text class="d-small" x="648" y="208" text-anchor="middle">sensor</text><text class="d-small" x="648" y="222" text-anchor="middle">específico</text>
+      <g class="d-line"><path d="M710 180 h10 M710 196 h10 M710 212 h10 M710 228 h10"/></g>
+      <path class="d-dash" d="M476 176 V160 H410"/><text class="d-small" x="404" y="156" text-anchor="end">I2C → LCD</text>
+      <!-- numeración -->
+      <g font-size="11">
+        <circle cx="440" cy="84" r="9" fill="#cfe3ff"/><text x="440" y="88" text-anchor="middle" fill="#0d2a4a" font-weight="700">1</text>
+        <circle cx="618" cy="84" r="9" fill="#cfe3ff"/><text x="618" y="88" text-anchor="middle" fill="#0d2a4a" font-weight="700">2</text>
+        <circle cx="618" cy="132" r="9" fill="#cfe3ff"/><text x="618" y="136" text-anchor="middle" fill="#0d2a4a" font-weight="700">3</text>
+        <circle cx="440" cy="188" r="9" fill="#cfe3ff"/><text x="440" y="192" text-anchor="middle" fill="#0d2a4a" font-weight="700">4</text>
+        <circle cx="548" cy="188" r="9" fill="#cfe3ff"/><text x="548" y="192" text-anchor="middle" fill="#0d2a4a" font-weight="700">5</text>
+        <circle cx="614" cy="188" r="9" fill="#cfe3ff"/><text x="614" y="192" text-anchor="middle" fill="#0d2a4a" font-weight="700">6</text>
+      </g>
+      <g class="d-text" font-size="12.5">
+        <text class="d-small" x="740" y="40">REFERENCIAS</text>
+        <text x="740" y="76">1 Batería 12 V (respaldo)</text>
+        <text x="740" y="100">2 Fuente / regulador 5 V</text>
+        <text x="740" y="124">3 Borneras de entrada</text>
+        <text x="740" y="148">4 ESP32 mini</text>
+        <text x="740" y="172">5 Sensor T + H</text>
+        <text x="740" y="196">6 Sensor específico</text>
+        <text x="740" y="220">— Placa perforada</text>
+        <text x="740" y="244">— Display LCD (tapa)</text>
+      </g>
+    </svg>
+    <figcaption>Medidas orientativas. El equipo debe ajustar el plano al gabinete y a los componentes reales (Lab. de Hardware).</figcaption>
+  </figure>
+
+  <h2>11.2 Conexiones del nodo</h2><p>Pines del NodeMCU ESP32, según el esquema del equipo. El divisor de tensión está soldado en la parte inferior de la placa experimental de 5x7 cm.</p><div class="table-wrap"><table><thead><tr><th>Componente</th><th>Pin del componente</th><th>Conexión</th><th>Notas</th></tr></thead><tbody><tr><td>Fuente 12 V</td><td>+12 V / GND</td><td>Interruptor y regulador 7805</td><td>El interruptor va en la entrada de 12 V, antes del regulador</td></tr><tr><td>Regulador 7805 (LM340T5)</td><td>OUT +5 V / GND</td><td>Pin VIN y GND del ESP32; VCC del MQ-135 y del LCD</td><td>Reemplazó al módulo step-down. Disipa calor: conviene disipador y capacitores</td></tr><tr><td>DHT22</td><td>DATA</td><td>GPIO 27</td><td>VCC a 3,3 V (pin 3V3 del ESP32)</td></tr><tr><td>LCD 16x2 (I2C)</td><td>SDA / SCL</td><td>GPIO 21 / GPIO 22</td><td>Dirección I2C 0x27, VCC a 5 V</td></tr><tr><td>MQ-135</td><td>AO</td><td>GPIO 34 (ADC1), con divisor de tensión</td><td>10 kΩ en serie desde AO y 18 kΩ a GND (no se consigue de 20 kΩ). VCC a 5 V. El ADC2 no funciona con WiFi activo</td></tr></tbody></table></div><div class="callout todo"><strong>A completar por el equipo</strong><p>Esquema eléctrico definitivo en formato digital (Fritzing, KiCad o EasyEDA) para guardar en <code>assets/img/</code>, y el plano del gabinete con las medidas reales de la caja estanca.</p></div>
+
+  <h2>11.3 Mapa de nodos</h2>
+  <figure class="diagram">
+    <svg viewBox="0 0 900 470" role="img" aria-labelledby="mapaT" id="mapaNodos">
+      <title id="mapaT">Plano esquemático de la escuela con la ubicación de los siete nodos y el servidor central</title>
+      <g class="d-box">
+        <rect x="20" y="20" width="200" height="150"/><rect x="230" y="20" width="200" height="150"/><rect x="440" y="20" width="220" height="150"/><rect x="670" y="20" width="210" height="150"/>
+        <rect x="20" y="180" width="860" height="60"/>
+        <rect x="450" y="250" width="200" height="110"/><rect x="660" y="250" width="220" height="110"/>
+      </g>
+      <rect class="d-dash" x="20" y="250" width="420" height="200" rx="6"/>
+      <g class="d-small">
+        <text x="30" y="40">AULA 1</text><text x="240" y="40">AULA 2</text><text x="450" y="40">LAB. HARDWARE</text><text x="680" y="40">SALA DE INFORMÁTICA</text>
+        <text x="30" y="200">PASILLO / SUM</text><text x="30" y="270">PATIO · HUERTA (exterior)</text><text x="460" y="270">SALA DE SERVIDORES</text><text x="670" y="270">DIRECCIÓN · TABLERO</text>
+      </g>
+      <g class="d-dash" id="enlaces"></g>
+      <rect class="d-box" x="574" y="296" width="56" height="46" rx="4" stroke-width="2"/><text class="d-title" x="602" y="323" text-anchor="middle" font-size="11">SRV</text>
+      <g id="nodosMapa"></g>
+      <g>
+        <rect x="690" y="380" width="190" height="70" rx="6" class="d-box"/>
+        <circle cx="706" cy="400" r="7" class="d-box"/><text class="d-small" x="720" y="404">Nodo IoT</text>
+        <circle cx="706" cy="422" r="7" class="d-accent"/><text class="d-small" x="720" y="426">Nodo de este equipo</text>
+        <path class="d-dash" d="M700 442 h14"/><text class="d-small" x="720" y="446">WiFi → servidor</text>
+      </g>
+    </svg>
+    <figcaption>Esquema orientativo, no a escala. Reemplácenlo por el plano real del edificio y marquen la altura de montaje de cada nodo.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Nodo</th><th>Ubicación propuesta</th><th>Sensor específico</th><th>Base común</th></tr></thead>
+    <tbody id="tablaNodos"></tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 12 COMPONENTES -->
+<section class="page" id="componentes" data-group="3 · Diseño técnico" data-title="Componentes" data-num="12">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>12. Componentes</h1>
+  <p class="lead">Todos los nodos comparten una <b>base común</b> (ESP32, temperatura + humedad y display LCD) y suman un <b>sensor específico</b> según la variable que miden.</p>
+  <h2>Base común de todos los nodos</h2>
+  <div class="grid" id="compBase"></div>
+  <h2>Sensores específicos</h2>
+  <div class="grid" id="compEsp"></div>
+  <h2>Componentes de nuestro nodo</h2><div class="grid"><div class="card"><h3 style="margin-top:0">NodeMCU ESP32 v1.1</h3><img src="data:image/jpeg;base64,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hug/e65dtdMTny04Ufj1rvLGwtbCERWcEcKAYwoxVkcUtIYlFFFABRRRQAUUuKKAEoFLRQAYooooAKKKKACiiigAooooAKKKKACiiigApaSloAKKKKACiiigApDS0hoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACkNLSGgAooooAWsSZWV2XGWB6VtUwxoZA5UFh0NADZ+LY/QVnRc3kRPrWhd/wDHu/0rPh/4+oT7igDQu/ur9aq2XN2PTBqzefcX61Ws8fahj+6aANGkpaQUARXMEdxE0cqhlNcNrHh3U47sDThG1u+SxJwVrv6KAPINT0zXo0kjSxd1x8rKM0uk+ENc1WFBqEi2VuAM5Hzn8O1evUUAc3oPg/SdJCukAmnH/LWX5j+HpXRhQOgoNFAB0ooooAKKKKACiiigBaKKKACiiigAooooAKKDSCgBaKKKACiiigAooooAKKKKACiiigApaSloAKKKKACiiigApDS0hoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoooNABRSUCgBaKKKACiiigBDRS0lADJV3xsvqKz4YZPtSZyAhyeOK1KSgCC9+4v1qrY5Nzz6GrF99xfrVawYG72g5IU5oA06KKKACiiigAooooAKKKQ0ABooooAKWkpaACiikoAKKKKAFoooNABQaQUtACCloooAKKKKACiiigAooooAKKKKACiiigApaaKdQAUUUUAFFFFABRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigAxRiiigCOWPzIypPWo7W2EA67mPGcVYooAMUYoooAMUYoooAMUYoooAMUhFLRQAgFBFLRQAAUmKWigAxSYpaKAExS4oooAMUYoooAMUYoooAMUYoooAMUYoooAMUYoooAMUYoooAMUYoooAMUYoooATFLRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9k=" alt="NodeMCU ESP32 (módulo ESP32-WROOM, USB-C)" style="width:100%;border-radius:8px;margin-bottom:8px"><p>Microcontrolador con WiFi. Lee los sensores, maneja el LCD y publica por MQTT. Reemplazó al ESP32 C3 Mini, cuyo módulo WiFi se dañó al soldar la antena. El primer NodeMCU vino con falla de fábrica y la escuela lo cambió.</p></div><div class="card"><h3 style="margin-top:0">DHT22</h3><p>Sensor digital de temperatura y humedad relativa, conectado al GPIO 27. Se lee cada 5 s.</p></div><div class="card"><h3 style="margin-top:0">MQ-135</h3><p>Sensor de gases para calidad de aire. Necesita precalentamiento. Se lee por la salida analógica (GPIO 34) y se informa como índice ICA, calibrado en aire limpio.</p></div><div class="card"><h3 style="margin-top:0">LCD 16x2 I2C</h3><p>Muestra temperatura y humedad con desplazamiento en la línea 1, y el ICA y el estado de red en la línea 2.</p></div><div class="card"><h3 style="margin-top:0">Divisor de tensión</h3><p>Resistencias de 10 kΩ y 18 kΩ que bajan la señal del MQ-135 al rango del ESP32.</p></div><div class="card"><h3 style="margin-top:0">Regulador 7805 e interruptor</h3><p>Regulador de 12 V a 5 V (LM340T5) que alimenta el nodo, con un interruptor de encendido. Reemplazó al módulo step-down.</p></div></div><div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Las imágenes son ilustraciones de referencia. Reemplácenlas por <b>fotos propias</b> de los componentes que compraron (fondo claro, 1200 × 800 px), guardadas en <code>assets/img/componentes/</code> con el mismo nombre.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 13 DASHBOARD -->
+<section class="page" id="dashboard" data-group="3 · Diseño técnico" data-title="Diseño de la aplicación" data-num="13">
+  <p class="eyebrow">Tercera sección · Laboratorio de Aplicaciones</p>
+  <h1>13. Diseño de la aplicación (dashboard)</h1>
+  <p class="lead">Tablero central con el estado de cada sector en tiempo real, históricos y alertas. Debe poder verse en una PC, una pantalla institucional y un celular.</p>
+  <h2>Wireframe</h2>
+  <figure class="diagram">
+    <svg viewBox="0 0 900 400" role="img" aria-labelledby="wfT">
+      <title id="wfT">Wireframe del dashboard: encabezado, tarjetas de semáforo por sector, gráfico histórico y panel de alertas</title>
+      <rect class="d-box" x="10" y="10" width="880" height="380" rx="10"/>
+      <rect class="d-box" x="10" y="10" width="880" height="46" rx="10"/><text class="d-title" x="30" y="38">Smart Campus IoT</text><text class="d-small" x="870" y="38" text-anchor="end">actualizado hace 12 s</text>
+      <g>
+        <rect class="d-box" x="30" y="74" width="196" height="96" rx="8"/><circle cx="52" cy="96" r="8" fill="#22c55e"/><text class="d-title" x="68" y="100">Aula 1</text><text class="d-text" x="46" y="132" font-size="22">23.4 °C</text><text class="d-small" x="46" y="156">H 48 % · Luz 410 lx</text>
+        <rect class="d-box" x="240" y="74" width="196" height="96" rx="8"/><circle cx="262" cy="96" r="8" fill="#eab308"/><text class="d-title" x="278" y="100">Lab. Hardware</text><text class="d-text" x="256" y="132" font-size="22">27.9 °C</text><text class="d-small" x="256" y="156">CO 18 ppm · ventilar</text>
+        <rect class="d-box" x="450" y="74" width="196" height="96" rx="8"/><circle cx="472" cy="96" r="8" fill="#22c55e"/><text class="d-title" x="488" y="100">Huerta</text><text class="d-text" x="466" y="132" font-size="22">Suelo 61 %</text><text class="d-small" x="466" y="156">T 19.2 °C</text>
+        <rect class="d-box" x="660" y="74" width="210" height="96" rx="8"/><circle cx="682" cy="96" r="8" fill="#94a3b8"/><text class="d-title" x="698" y="100">Sala Informática</text><text class="d-text" x="676" y="132" font-size="22">Sin datos</text><text class="d-small" x="676" y="156">nodo desconectado 6 min</text>
+      </g>
+      <rect class="d-box" x="30" y="188" width="560" height="184" rx="8"/><text class="d-title" x="46" y="212">Histórico · temperatura (24 h)</text>
+      <path class="d-line" d="M50 340 H570 M50 230 V340"/>
+      <path class="mg-line" d="M50 320 C110 310 140 280 200 286 S300 250 350 262 S450 230 500 246 S550 240 570 236" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+      <rect class="d-box" x="606" y="188" width="264" height="184" rx="8"/><text class="d-title" x="622" y="212">Alertas</text>
+      <g class="d-small"><text x="622" y="244">▲ Lab. Hardware · CO alto · 10:42</text><text x="622" y="270">● Sala Informática · offline · 10:36</text><text x="622" y="296">▲ Aula 2 · temp. &gt; 28 °C · 09:15</text></g>
+    </svg>
+    <figcaption>Maqueta de baja fidelidad. El color del semáforo siempre va acompañado de un texto (para que se entienda también sin distinguir colores).</figcaption>
+  </figure>
+  <h2>Semáforo por variable</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Normal</th><th>Atención</th><th>Alerta</th></tr></thead>
+    <tbody>
+      <tr><td>Temperatura interior</td><td>18 – 26 °C</td><td>16 – 18 / 26 – 30 °C</td><td>&lt; 16 / &gt; 30 °C</td></tr>
+      <tr><td>Humedad relativa</td><td>40 – 60 %</td><td>30 – 40 / 60 – 70 %</td><td>&lt; 30 / &gt; 70 %</td></tr>
+      <tr><td>Monóxido de carbono</td><td>&lt; 9 ppm</td><td>9 – 35 ppm</td><td>&gt; 35 ppm</td></tr>
+      <tr><td>Nivel sonoro</td><td>&lt; 55 dB</td><td>55 – 70 dB</td><td>&gt; 70 dB</td></tr>
+      <tr><td>Nodo</td><td>Datos hace &lt; 2 min</td><td>2 – 5 min</td><td>Desconectado &gt; 5 min</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:14px;color:var(--text-2)">Valores de referencia para el proyecto escolar. El equipo debe justificar los umbrales definitivos con fuentes.</p>
+  <h2>Dashboard del equipo</h2><p>Página web de un solo archivo (HTML, CSS y JavaScript) llamada “QuantumMesh IoT”, que se conecta al broker con MQTT.js y dibuja los datos con Chart.js. Muestra tres tarjetas (temperatura, humedad y calidad de aire), gráficos con los últimos puntos, estadísticas de la sesión y una consola con cada trama recibida.</p>
+<div class="callout"><strong>Por qué usamos ICA y no ppm</strong><p>El MQ-135 responde a varios gases a la vez (CO₂, amoníaco, alcohol, humo) y entrega una sola señal, así que no permite saber cuánto hay de cada uno. Para informar ppm haría falta la curva de un gas puntual y una calibración con una concentración conocida, que el equipo no tiene. Por eso se informa un <b>índice relativo ICA de 0 a 500</b>, calibrado con el propio sensor: 0 corresponde al aire limpio (RAW 700) y 500 a una contaminación fuerte (RAW 2700), con el divisor de tensión instalado. No es el ICA oficial ni una concentración en ppm.</p></div><div class="callout todo"><strong>A completar por el equipo</strong><p>Capturas del dashboard en escritorio y en celular, la dirección donde queda publicado (para cargarla en <a href="#ver-proyecto">Ver el proyecto</a>) y la referencia en APA 7.ª edición de la hoja de datos del MQ-135 si se cita en este apartado. También falta definir los umbrales del dashboard en ICA y adaptar la web a los tópicos del nodo.</p></div>
+</section>
+
+<!-- ================================================================ 14 PRESUPUESTO -->
+<section class="page" id="presupuesto" data-group="4 · Seguimiento" data-title="Presupuesto y BOM" data-num="14">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>14. Presupuesto y lista de materiales (BOM)</h1>
+  <p class="lead">Costo de un nodo. Multipliquen por la cantidad de nodos y sumen el servidor si hay que comprarlo.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Ítem</th><th class="num">Cant.</th><th class="num">Precio unit.</th><th class="num">Subtotal</th></tr></thead>
+    <tbody id="tablaBOM"></tbody>
+  </table></div>
+  <p style="font-size:14px;color:var(--text-2)">Total de la lista de precios del equipo: <b>$71.590</b>. Incluye el ESP32 C3 dañado y el step-down que no se usó. El regulador 7805, el interruptor, las resistencias y la caja estanca los proporcionó la institución, por eso figuran sin precio. Hay un ítem sin comprar (cable USB tipo C).</p><div class="callout todo"><strong>A completar por el equipo</strong><p>Fecha y proveedor de las cotizaciones de los ítems comprados.</p></div>
+</section>
+
+<!-- ================================================================ 15 PRUEBAS -->
+<section class="page" id="pruebas" data-group="4 · Seguimiento" data-title="Bitácora de pruebas" data-num="15">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>15. Bitácora de pruebas</h1>
+  <p class="lead">Evidencia técnica de que el sistema funciona: qué se probó, qué se esperaba y qué pasó.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Fecha</th><th>Prueba</th><th>Resultado esperado</th><th>Resultado obtenido</th><th>Estado</th></tr></thead>
+    <tbody id="tablaPruebas"></tbody>
+  </table></div>
+  <h2>Registro de sprints</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Sprint</th><th>Meta</th><th>Entregado</th><th>Retrospectiva</th></tr></thead>
+    <tbody><tr><td>1</td><td>—</td><td>—</td><td>—</td></tr><tr><td>2</td><td>—</td><td>—</td><td>—</td></tr></tbody>
+  </table></div>
+  <div class="callout todo"><strong>A completar por el equipo</strong><p>Registro de sprints (meta, entregado y retrospectiva) y capturas o fotos como evidencia de las pruebas.</p></div>
+</section>
+
+<!-- ================================================================ 16 RESULTADOS -->
+<section class="page" id="resultados" data-group="4 · Seguimiento" data-title="Resultados y mejoras" data-num="16">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>16. Resultados y mejoras futuras</h1>
+  <h2>Resultados</h2>
+  <ul><li>El nodo lee temperatura, humedad y calidad de aire, y los muestra en el LCD.</li><li>Publica los datos por MQTT en los tópicos <code>6to_info/A/G1/…</code> y se reconecta solo si se cae la red.</li><li>El MQ-135 se calibró en aire limpio (RAW cercano a 700) y con vapores de alcohol llegó a unos 2900, por lo que se usa 700 como 0 y 2700 como 500 del índice ICA.</li><li>Las 28 tareas de la carta Gantt figuran al 100 %. El reporte al dashboard se probó con éxito el 23/10.</li></ul><div class="callout todo"><strong>A completar por el equipo</strong><p>Datos reales medidos en el Aula Taller, gráficos del histórico y la decisión concreta que puede tomar la escuela con esa información.</p></div>
+  <h2>Mejoras futuras</h2>
+  <ul>
+    <li>Actualización de firmware por OTA.</li><li>Conversión del MQ-135 a ppm con una curva por gas y una calibración con concentración conocida.</li><li>Conectar el dashboard al broker del laboratorio y adaptarlo a los tópicos del nodo.</li><li>Asegurar el broker (contraseñas fuera del código, ACL y TLS).</li><li>Soldar con control de temperatura y tiempos cortos para no dañar el módulo WiFi, y probar cada placa nueva antes de armar todo.</li>
+    <li>Notificaciones de alertas por correo o mensajería.</li>
+    <li>Módulo de consumo energético con sensor no invasivo.</li>
+    <li>Análisis estadístico del histórico (promedios, picos, horarios críticos).</li>
+    <li>Más nodos y una pantalla de monitoreo permanente en la escuela.</li>
+  </ul>
+</section>
+
+<!-- ================================================================ 17 GUÍA -->
+<section class="page page-guia" id="guia" data-group="Guía de uso" data-title="Cómo usar esta documentación" data-num="17">
+  <p class="eyebrow">Manual de usuario</p>
+  <h1><span class="guide-badge" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></span>17. Cómo usar esta documentación</h1>
+  <p class="lead">Instrucciones para que el equipo complete, actualice y publique su carpeta del proyecto.</p>
+  <h2>Editar los datos del equipo</h2>
+  <ol class="steps">
+    <li><div>Abran <code>assets/js/datos.js</code> con un editor de código (por ejemplo VS Code).</div></li>
+    <li><div>Completen nombre del equipo, curso, <b>nodo asignado</b> e integrantes con el formato <code>"Apellido, Nombre"</code>.</div></li>
+    <li><div>Publiquen la planilla de la Gantt en Google Sheets y peguen el enlace en <code>ganttSheetUrl</code> (ver <a href="#gantt">Carta Gantt</a>).</div></li>
+    <li><div>Actualicen la Gantt, el presupuesto, las pruebas y el control de cambios a medida que avanza el proyecto.</div></li>
+    <li><div>Los textos largos de cada apartado se editan directamente en <code>index.html</code>.</div></li>
+  </ol>
+  <h2>Publicar con GitHub Pages</h2>
+  <ol class="steps">
+    <li><div>Creen un repositorio en GitHub y suban esta carpeta completa.</div></li>
+    <li><div>En el repositorio: <b>Settings → Pages → Branch: main → / (root)</b> y guarden.</div></li>
+    <li><div>En uno o dos minutos la documentación queda en <code>https://usuario.github.io/repositorio/</code>.</div></li>
+    <li><div>Si el dashboard es una página web, súbanlo a otro repositorio (o a una carpeta <code>/app</code>) y copien su dirección en <code>previewUrl</code>.</div></li>
+  </ol>
+  <h2>Mostrar el dashboard en el visor</h2>
+  <ul>
+    <li><b>Página web propia</b> (HTML/CSS/JS, React, Vue): funciona directo con GitHub Pages o Netlify.</li>
+    <li><b>Grafana o Node-RED Dashboard</b> dentro de la escuela: solo se ve desde la red escolar. Para la feria, usen la dirección local del servidor (por ejemplo <code>http://192.168.1.50/</code>).</li>
+    <li>Si la página bloquea el visor, usen <b>Abrir en una pestaña nueva</b>.</li>
+  </ul>
+  <h2>Exportar a PDF</h2>
+  <p>Desde el navegador: <b>Imprimir → Guardar como PDF</b>. Se imprimen todos los apartados juntos.</p>
+</section>
+
+    <nav class="pager page" id="pager" aria-label="Apartado anterior y siguiente"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p><b data-bind="nombre"></b> · Documentación del proyecto · <span data-bind="equipo"></span></p>
+  <p>Proyecto Institucional 6to año <span data-bind="ciclo"></span> · <span data-bind="institucion"></span></p>
+</footer>
+
+<script src="assets/js/datos.js?v=6"></script>
+<script src="assets/js/app.js?v=6"></script>
+</body>
+</html>
