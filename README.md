@@ -38,7 +38,7 @@ Proyecto institucional de 6.º año de Informática (A)· Grupo 1 · 2026.
 >
 > Se usa el GPIO 34 porque pertenece al ADC1: los pines del ADC2 no funcionan con el WiFi activo.
 >
-> El interruptor va en la entrada de 12 V, antes del 7805. Al ser un regulador lineal, el 7805 disipa calor: se recomienda un disipador y capacitores cerca del regulador (por ejemplo 0,33 µF en la entrada y 0,1 µF en la salida).
+> El interruptor va en la entrada de 12 V, antes del 7805.
 
 ## Software
 
