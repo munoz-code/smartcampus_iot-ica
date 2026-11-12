@@ -134,7 +134,7 @@
   $("#tablaCambios").innerHTML = (P.cambios || []).map((c) =>
     `<tr><td class="mono">${esc(c.version)}</td><td>${esc(c.fecha || "Pendiente")}</td><td>${esc(c.responsable)}</td><td>${esc(c.detalle)}</td></tr>`).join("");
 
-  $("#tablaDocentes").innerHTML = (P.docentes || []).map((d) => `<tr><td>${esc(d.asignatura)}</td><td>${esc(d.nombre)}</td></tr>`).join("");
+  $("#tablaDocentes").innerHTML = (P.docentes || []).map((d) => `<tr><td>${esc(d.asignatura)}</td><td><span style="display:inline-flex;align-items:center;gap:10px">${d.foto ? `<img src="${esc(d.foto)}" alt="${esc(d.nombre)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover">` : ""}${esc(d.nombre)}</span></td></tr>`).join("");
 
   const pesos = (n) => "$ " + Number(n || 0).toLocaleString("es-AR");
   let total = 0;
