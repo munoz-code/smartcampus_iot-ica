@@ -27,32 +27,8 @@
       tareas: ["Instala y administra el servidor Linux y la red", "Broker MQTT, base de datos y backups", "Montaje físico, alimentación y gabinete del nodo"] }
   };
 
-  const NODOS = {
-    luz:       { nombre: "Nodo de luz (luxómetro)", lugar: "Aula 1", sensor: "BH1750", x: 120, y: 105 },
-    presencia: { nombre: "Nodo de presencia (PIR)", lugar: "Aula 2", sensor: "PIR HC-SR501", x: 330, y: 105 },
-    aire:      { nombre: "Nodo de calidad de aire", lugar: "Aula Taller", sensor: "MQ-135", x: 550, y: 105 },
-    consumo:   { nombre: "Nodo de consumo eléctrico", lugar: "Sala de Informática", sensor: "ACS712 / SCT-013", x: 775, y: 105 },
-    ruido:     { nombre: "Nodo de ruido (dB)", lugar: "Pasillo / SUM", sensor: "KY-037", x: 330, y: 210 },
-    suelo:     { nombre: "Nodo de humedad de suelo", lugar: "Patio / huerta", sensor: "Capacitivo v1.2", x: 230, y: 365 },
-    red:       { nombre: "Nodo de estado de red (latencia)", lugar: "Sala de servidores", sensor: "Software (ping + RSSI)", x: 500, y: 320 }
-  };
-  const SRV = { x: 602, y: 319 };
-
-  const COMPONENTES = [
-    { img: "esp32-mini", nombre: "NodeMCU ESP32 v1.1", base: true, uso: "Microcontrolador con WiFi: lee los sensores, maneja el LCD y publica por MQTT.", datos: [["Tensión", "3,3 V (VIN 5 V)"], ["Red", "WiFi 2,4 GHz"], ["ADC", "12 bits"]] },
-    { img: "dht22", nombre: "DHT22 (AM2302)", base: true, uso: "Mide temperatura y humedad relativa. Lo llevan todos los nodos.", datos: [["Rango", "−40 a 80 °C · 0–100 %"], ["Precisión", "±0,5 °C · ±2 %"], ["Interfaz", "Digital 1 cable"]] },
-    { img: "lcd-16x2", nombre: "Display LCD 16x2 I2C", base: true, uso: "Muestra los valores en el propio nodo, sin depender del dashboard.", datos: [["Interfaz", "I2C (2 cables)"], ["Dirección", "0x27 / 0x3F"], ["Tensión", "5 V"]] },
-    { img: "bh1750", nombre: "BH1750 (luxómetro)", nodo: "luz", uso: "Mide la iluminación en lux. Sirve para saber si un aula tiene luz suficiente o luces encendidas sin uso.", datos: [["Rango", "1 – 65535 lx"], ["Interfaz", "I2C (0x23)"]] },
-    { img: "pir", nombre: "PIR HC-SR501", nodo: "presencia", uso: "Detecta movimiento de personas por infrarrojo. No identifica a nadie.", datos: [["Alcance", "hasta 7 m"], ["Salida", "Digital 3,3 V"]] },
-    { img: "mq-gas", nombre: "MQ-135 (calidad de aire)", nodo: "aire", uso: "Sensor de gases para calidad de aire general. Necesita precalentamiento. El equipo lo lee por la salida analógica y lo informa como índice ICA de 0 a 500, calibrado en aire limpio.", datos: [["Salida", "Analógica (AO)"], ["Calentador", "5 V"]] },
-    { img: "sonido", nombre: "KY-037 (sonido)", nodo: "ruido", uso: "Micrófono con salida analógica para estimar el nivel sonoro. Requiere calibrar contra un decibelímetro.", datos: [["Salida", "Analógica + digital"], ["Ajuste", "Potenciómetro"]] },
-    { img: "acs712", nombre: "ACS712 (corriente)", nodo: "consumo", uso: "Mide corriente de una carga. Por seguridad, para 220 V usen un sensor no invasivo tipo pinza SCT-013 y nunca intervengan la instalación de la escuela.", datos: [["Versiones", "5 / 20 / 30 A"], ["Salida", "Analógica"]] },
-    { img: "humedad-suelo", nombre: "Humedad de suelo capacitivo", nodo: "suelo", uso: "Mide la humedad de la tierra de la huerta. El capacitivo no se corroe como el resistivo.", datos: [["Tensión", "3,3 – 5 V"], ["Salida", "Analógica"]] },
-    { img: "red-wifi", nombre: "Monitoreo de red", nodo: "red", uso: "No usa sensor extra: el ESP32 mide la señal WiFi (RSSI) y la latencia (ping) hacia el servidor.", datos: [["Mide", "RSSI dBm · ms"], ["Hardware", "Solo el ESP32"]] }
-  ];
-
   /* ---------------------------------------------------------------- bindings */
-  const nodo = NODOS[P.nodoAsignado] || NODOS.aire;
+  const nodo = { nombre: "Calidad de aire (ICA), temperatura y humedad" };
   // "Apellido, Nombre" -> "Apellido"
   const apellidos = [...new Set((P.integrantes || []).map((m) => String(m.nombre).split(",")[0].trim()).filter(Boolean))].join(" · ");
   const valores = Object.assign({}, P, { nodoNombre: nodo.nombre, semanasPorSprint: P.semanasPorSprint || 3, apellidos: apellidos || "A completar" });
@@ -124,7 +100,6 @@
     document.body.classList.remove("nav-open");
     $("#menuBtn").setAttribute("aria-expanded", "false");
     window.scrollTo(0, 0);
-    if (id === "gantt") scrollGanttToToday();
     // Reinicia las animaciones de los gráficos cada vez que se entra al apartado
     pages.forEach((p) => p.classList.remove("mg-run"));
     void page.offsetWidth;
@@ -166,7 +141,7 @@
   $("#tablaBOM").innerHTML = (P.bom || []).map((b) => {
     const sub = (b.cant || 0) * (b.unit || 0); total += sub;
     return `<tr><td>${esc(b.item)}</td><td class="num">${esc(b.cant)}</td><td class="num">${b.unit ? pesos(b.unit) : "—"}</td><td class="num">${sub ? pesos(sub) : "—"}</td></tr>`;
-  }).join("") + `<tr><td><b>Total por nodo</b></td><td></td><td></td><td class="num"><b>${total ? pesos(total) : "a completar"}</b></td></tr>`;
+  }).join("") + `<tr><td><b>Total de la lista de precios</b></td><td></td><td></td><td class="num"><b>${total ? pesos(total) : "a completar"}</b></td></tr>`;
 
   const ESTADOS = { ok: ["lvl-bajo", "OK"], falla: ["lvl-alto", "Falla"], pendiente: ["lvl-medio", "Pendiente"] };
   $("#tablaPruebas").innerHTML = (P.pruebas || []).map((t) => {
@@ -183,93 +158,8 @@
     const r = ROLES[m.rol] || ROLES.pm;
     const foto = m.foto ? `<img src="${esc(m.foto)}" alt="" loading="lazy">` : esc(iniciales(m.nombre));
     const gh = m.github ? `<p><a href="https://github.com/${esc(m.github)}" target="_blank" rel="noopener">@${esc(m.github)}</a></p>` : "";
-    return `<div class="card member ${r.clase}"><div class="avatar" aria-hidden="true">${foto}</div><div><h3>${esc(m.nombre)}</h3><span class="tag ${r.clase}">${esc(r.titulo)}</span><p>${esc(r.taller)}</p>${gh}</div></div>`;
+    return `<div class="card member ${r.clase}"><div class="avatar" aria-hidden="true">${foto}</div><div><h3>${esc(m.nombre)}</h3><span class="tag ${r.clase}">${esc(r.titulo)}</span><p>${esc(m.cargo || "")}</p>${gh}</div></div>`;
   }).join("");
-  $("#listaRoles").innerHTML = Object.values(ROLES).map((r) =>
-    `<div class="card area-card ${r.clase}"><span class="tag ${r.clase}">${esc(r.titulo)}</span><h3>${esc(r.taller)}</h3><ul>${r.tareas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>`).join("");
-
-  /* ---------------------------------------------------------------- mapa de nodos */
-  const ns = "http://www.w3.org/2000/svg";
-  const enlaces = $("#enlaces"), nodosMapa = $("#nodosMapa");
-  Object.entries(NODOS).forEach(([k, n], i) => {
-    const l = document.createElementNS(ns, "path");
-    l.setAttribute("d", `M${n.x} ${n.y} L${SRV.x} ${SRV.y}`);
-    enlaces.appendChild(l);
-    const g = document.createElementNS(ns, "g");
-    const mine = k === P.nodoAsignado;
-    g.innerHTML = `<circle cx="${n.x}" cy="${n.y}" r="${mine ? 16 : 13}" class="${mine ? "d-accent" : "d-box"}"/>` +
-      `<text class="d-title" x="${n.x}" y="${n.y + 4}" text-anchor="middle" font-size="11">N${i + 1}</text>` +
-      `<text class="d-small" x="${n.x}" y="${n.y + 30}" text-anchor="middle">${esc(n.nombre.replace(/^Nodo de /, "").replace(/ \(.*\)/, ""))}</text>`;
-    nodosMapa.appendChild(g);
-  });
-  $("#tablaNodos").innerHTML = Object.entries(NODOS).map(([k, n], i) =>
-    `<tr${k === P.nodoAsignado ? ' style="font-weight:600"' : ""}><td>N${i + 1} · ${esc(n.nombre)}${k === P.nodoAsignado ? ' <span class="tag a-desarrollo">este equipo</span>' : ""}</td><td>${esc(n.lugar)}</td><td>${esc(n.sensor)}</td><td>ESP32 + DHT22 + LCD</td></tr>`).join("");
-
-  /* ---------------------------------------------------------------- componentes */
-  const card = (c) => {
-    const mine = c.nodo && c.nodo === P.nodoAsignado;
-    return `<article class="card comp${mine ? " destacado" : ""}">
-      <figure><img src="assets/img/componentes/${c.img}.svg" alt="Ilustración: ${esc(c.nombre)}" width="240" height="160" loading="lazy"></figure>
-      <div class="body">${mine ? '<span class="badge-asignado">Sensor de este equipo</span>' : ""}
-        ${c.nodo ? `<span class="tag a-hardware" style="margin-bottom:6px">${esc(NODOS[c.nodo].nombre.replace(/ \(.*\)/, ""))}</span>` : ""}
-        <h3>${esc(c.nombre)}</h3><p>${esc(c.uso)}</p>
-        <dl>${c.datos.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl></div></article>`;
-  };
-  $("#compBase").innerHTML = COMPONENTES.filter((c) => c.base).map(card).join("");
-  const esp = COMPONENTES.filter((c) => c.nodo).sort((a, b) => (b.nodo === P.nodoAsignado) - (a.nodo === P.nodoAsignado));
-  $("#compEsp").innerHTML = esp.map(card).join("");
-
-  /* ---------------------------------------------------------------- Gantt */
-  const DAY = 86400000;
-  const d = (s) => new Date(s + "T00:00:00");
-  const G0 = d("2026-03-01"), G1 = d("2026-12-01");
-  const span = G1 - G0;
-  const pct = (date) => Math.max(0, Math.min(100, ((date - G0) / span) * 100));
-  const MESES = ["Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov"];
-
-  $("#ganttLegend").innerHTML = Object.entries(AREAS).map(([k, v]) => `<span class="tag a-${k}">${esc(v)}</span>`).join("");
-
-  let rows = `<div class="g-row g-head"><div class="g-label">Tarea</div><div class="g-track">${MESES.map((m) => `<div>${m}</div>`).join("")}</div></div>`;
-  // fila de sprints
-  const semanas = P.semanasPorSprint || 3;
-  let sprints = "", s = d("2026-03-02"), nro = 1;
-  while (s < d("2026-11-28")) {
-    const e = new Date(s.getTime() + semanas * 7 * DAY - 3 * DAY);
-    sprints += `<div class="g-sprint" style="left:${pct(s)}%;width:${pct(e) - pct(s)}%" title="Sprint ${nro}">S${nro}</div>`;
-    s = new Date(s.getTime() + semanas * 7 * DAY); nro++;
-  }
-  rows += `<div class="g-row"><div class="g-label"><span class="txt">Sprints (${semanas} semanas)</span></div><div class="g-track">${sprints}</div></div>`;
-
-  let fila = 0;   // orden de aparición en la animación
-  (P.gantt || []).forEach((et) => {
-    const ini = et.tareas.map((t) => d(t.inicio)), fin = et.tareas.map((t) => d(t.fin));
-    const a = new Date(Math.min(...ini)), b = new Date(Math.max(...fin));
-    rows += `<div class="g-row g-stage"><div class="g-label"><span class="txt">${esc(et.etapa)}</span></div><div class="g-track"><div class="g-stagebar" style="--i:${fila++};left:${pct(a)}%;width:${pct(new Date(b.getTime() + DAY)) - pct(a)}%"></div></div></div>`;
-    et.tareas.forEach((t) => {
-      const area = AREAS[t.area] ? t.area : "pm";
-      const rango = `${t.inicio} a ${t.fin}`;
-      const marca = t.hito
-        ? `<div class="g-hito a-${area}" style="--i:${fila++};left:${pct(d(t.inicio))}%" title="Hito: ${esc(t.nombre)} · ${esc(t.inicio)}"></div>`
-        : `<div class="g-bar a-${area}" style="--i:${fila++};left:${pct(d(t.inicio))}%;width:${pct(new Date(d(t.fin).getTime() + DAY)) - pct(d(t.inicio))}%" title="${esc(t.nombre)} · ${esc(rango)}"></div>`;
-      rows += `<div class="g-row"><div class="g-label a-${area}"><span class="dot"></span><span class="txt">${t.hito ? "◆ " : ""}${esc(t.nombre)}<span class="sr-only"> (${esc(AREAS[area])}, ${esc(rango)})</span></span></div><div class="g-track">${marca}</div></div>`;
-    });
-  });
-
-  // overlay: líneas de mes, receso y hoy
-  let over = "";
-  for (let m = 1; m < 9; m++) over += `<div class="g-month" style="left:${pct(new Date(2026, 2 + m, 1))}%"></div>`;
-  (P.receso || []).forEach((r) => {
-    over += `<div class="g-receso" style="left:${pct(d(r.inicio))}%;width:${pct(new Date(d(r.fin).getTime() + DAY)) - pct(d(r.inicio))}%" title="${esc(r.nombre)}"></div>`;
-  });
-  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-  if (hoy >= G0 && hoy < G1) over += `<div class="g-today" style="left:${pct(hoy)}%"><span>Hoy</span></div>`;
-  $("#gantt-chart").innerHTML = `<div class="gantt-inner">${rows}<div class="g-overlay">${over}</div></div>`;
-
-  function scrollGanttToToday() {
-    const box = $("#gantt-chart"), t = $(".g-today", box);
-    if (!box || !t || box.scrollWidth <= box.clientWidth) return;
-    requestAnimationFrame(() => { box.scrollLeft = Math.max(0, t.offsetLeft + $(".g-label", box).offsetWidth - box.clientWidth / 2); });
-  }
 
   /* ---------------------------------------------------------------- Gantt en Google Sheets */
   const sheetUrl = (() => {
@@ -322,22 +212,13 @@
   }));
 
   const link = (u, txt) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(txt || u)}</a>`;
-  $("#accesoPreview").innerHTML = oficial ? link(oficial) : 'Sin publicar todavía. Completar <code>previewUrl</code> en <code>datos.js</code>.';
-  $("#accesoRepo").innerHTML = validUrl(P.repoUrl || "") ? link(P.repoUrl) : 'Sin cargar. Completar <code>repoUrl</code> en <code>datos.js</code>.';
+  $("#accesoPreview").innerHTML = oficial ? link(oficial) : 'Sin publicar todavía.';
+  $("#accesoRepo").innerHTML = validUrl(P.repoUrl || "") ? link(P.repoUrl) : 'Sin cargar.';
   $("#estadoPublicacion").innerHTML = oficial ? '<span class="status on">Publicado</span>' : '<span class="status off">Sin publicar</span>';
 
   /* ---------------------------------------------------------------- motion graphics */
   const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (sinMovimiento) $$(".mg-packets").forEach((g) => g.remove());
-
-  // Pulso sobre el nodo del equipo en el mapa
-  const mio = NODOS[P.nodoAsignado];
-  if (mio) {
-    const ring = document.createElementNS(ns, "circle");
-    ring.setAttribute("cx", mio.x); ring.setAttribute("cy", mio.y); ring.setAttribute("r", 16);
-    ring.setAttribute("class", "mg-pulse");
-    nodosMapa.prepend(ring);
-  }
 
   // Cada diagrama SVG aparece por partes: las cajas suben, las líneas se dibujan
   $$("figure.diagram svg").forEach((svg) => {
