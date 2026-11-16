@@ -154,12 +154,20 @@
     const partes = String(n).replace(",", " ").split(/\s+/).filter(Boolean);
     return partes.length ? (partes[0][0] + (partes[1] ? partes[1][0] : "")).toUpperCase() : "?";
   };
-  $("#listaIntegrantes").innerHTML = (P.integrantes || []).map((m) => {
-    const r = ROLES[m.rol] || ROLES.pm;
-    const foto = m.foto ? `<img src="${esc(m.foto)}" alt="" loading="lazy">` : esc(iniciales(m.nombre));
-    const gh = m.github ? `<p><a href="https://github.com/${esc(m.github)}" target="_blank" rel="noopener">@${esc(m.github)}</a></p>` : "";
-    return `<div class="card member ${r.clase}"><div class="avatar" aria-hidden="true">${foto}</div><div><h3>${esc(m.nombre)}</h3><span class="tag ${r.clase}">${esc(r.titulo)}</span><p>${esc(m.cargo || "")}</p>${gh}</div></div>`;
+  const grupos = new Map();
+  (P.integrantes || []).forEach((m) => { if (!grupos.has(m.nombre)) grupos.set(m.nombre, []); grupos.get(m.nombre).push(m); });
+  $("#listaIntegrantes").innerHTML = [...grupos.values()].map((ms) => {
+    const m = ms[0], rs = ms.map((x) => ROLES[x.rol] || ROLES.pm);
+    const foto = ms.find((x) => x.foto);
+    const av = foto ? `<img src="${esc(foto.foto)}" alt="" loading="lazy">` : esc(iniciales(m.nombre));
+    const gh = ms.find((x) => x.github);
+    const ghp = gh ? `<p><a href="https://github.com/${esc(gh.github)}" target="_blank" rel="noopener">@${esc(gh.github)}</a></p>` : "";
+    const tags = rs.map((r) => `<span class="tag ${r.clase}">${esc(r.titulo)}</span>`).join(" ");
+    const cargos = ms.length === 1 ? esc(m.cargo || "") : ms.filter((x) => x.cargo).map((x, k) => esc((ROLES[x.rol] || ROLES.pm).titulo + ": " + x.cargo)).join(" · ");
+    return `<div class="card member ${rs[0].clase}"><div class="avatar" aria-hidden="true">${av}</div><div><h3>${esc(m.nombre)}</h3>${tags}<p>${cargos}</p>${ghp}</div></div>`;
   }).join("");
+  $("#listaRoles").innerHTML = Object.values(ROLES).map((r) =>
+    `<div class="card area-card ${r.clase}"><span class="tag ${r.clase}">${esc(r.titulo)}</span><h3>${esc(r.taller)}</h3><ul>${r.tareas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>`).join("");
 
   /* ---------------------------------------------------------------- Gantt en Google Sheets */
   const sheetUrl = (() => {
