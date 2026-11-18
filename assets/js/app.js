@@ -193,7 +193,7 @@
 
   /* ---------------------------------------------------------------- visor del proyecto */
   const frame = $("#viewerFrame"), empty = $("#viewerEmpty"), input = $("#viewerInput"), open = $("#viewerOpen");
-  const validUrl = (u) => { try { const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : ""; } catch (e) { return ""; } };
+  const validUrl = (u) => { try { const x = new URL(u, location.href); return /^(https?|file):$/.test(x.protocol) ? x.href : ""; } catch (e) { return ""; } };
   function load(url) {
     const u = validUrl(url);
     if (!u) {
