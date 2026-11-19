@@ -57,24 +57,24 @@ window.PROYECTO = {
     { version: "0.2", fecha: "11/08/2026", responsable: "Todo el equipo", detalle: "Adquisición del material de hardware y registro de precios en la planilla (tarea 2)." },
     { version: "0.3", fecha: "18/08/2026", responsable: "Luca Suarez, Mariano Muñoz, Thomas Leguizamón", detalle: "Precalentamiento y prueba inicial de MQ-135, DHT22 y ESP32 C3 Mini; código del DHT22 (tareas 3 y 4)." },
     { version: "0.4", fecha: "20/08/2026", responsable: "Sol Segatore, Luciano Dominici", detalle: "Código del MQ-135: lectura analógica sin calibrar (tarea 5)." },
-    { version: "0.5", fecha: "28/08/2026", responsable: "Todo el equipo", detalle: "Consulta al auditor sobre las compras para la placa experimental y actualización de la documentación (tareas 6 y 7)." },
-    { version: "0.6", fecha: "03/09/2026", responsable: "Todo el equipo", detalle: "Integración de los códigos de ambos sensores con visualización en LCD y dibujo del esquema de conexión (tareas 8 y 9)." },
-    { version: "0.7", fecha: "24/09/2026", responsable: "Todo el equipo", detalle: "Compra de componentes, esquema de la placa y soldadura del nodo (tareas 10 a 12)." },
-    { version: "0.8", fecha: "01/10/2026", responsable: "Todo el equipo", detalle: "Gabinete: trazado y corte de la caja; adquisición del módulo step-down (tareas 13 a 15)." },
-    { version: "0.9", fecha: "09/10/2026", responsable: "Todo el equipo", detalle: "Prueba del montaje: se detectan dos problemas (señal alta del MQ-135 y falla de WiFi del ESP32 C3 Mini). Se agregan antena y divisor de tensión (tareas 16 a 19)." },
+    { version: "0.5", fecha: "28/08/2026", responsable: "Todo el equipo / Felipe Veneziale, Sol Segatore, Thomas Leguizamón", detalle: "Consulta al auditor sobre las compras para la placa experimental y actualización de la documentación (tareas 6 y 7)." },
+    { version: "0.6", fecha: "03/09/2026", responsable: "Todo el equipo / Mariano Muñoz", detalle: "Integración de los códigos de ambos sensores con visualización en LCD y dibujo del esquema de conexión (tareas 8 y 9)." },
+    { version: "0.7", fecha: "24/09/2026", responsable: "Todo el equipo / Mariano Muñoz", detalle: "Compra de componentes, esquema de la placa y soldadura del nodo (tareas 10 a 12)." },
+    { version: "0.8", fecha: "01/10/2026", responsable: "Felipe Veneziale / Todo el equipo", detalle: "Gabinete: trazado y corte de la caja; adquisición del módulo step-down (tareas 13 a 15)." },
+    { version: "0.9", fecha: "09/10/2026", responsable: "Mariano Muñoz, Sol Segatore, Luciano Dominici, Luca Suarez, Felipe Veneziale", detalle: "Prueba del montaje: se detectan dos problemas (señal alta del MQ-135 y falla de WiFi del ESP32 C3 Mini). Actualización de Gantt, antena y divisor de tensión (tareas 16 a 19)." },
     { version: "0.10", fecha: "09/10/2026", responsable: "Todo el equipo", detalle: "Cambio por falla: el módulo WiFi del ESP32 C3 Mini se dañó por calor al soldar la antena. Se decide comprar un NodeMCU ESP32 (tarea 20)." },
-    { version: "0.11", fecha: "16/10/2026", responsable: "Todo el equipo", detalle: "Compra del NodeMCU ESP32 v1.1 y armado de una placa nueva por el cambio de pinout (tareas 21 y 22)." },
-    { version: "0.12", fecha: "23/10/2026", responsable: "Todo el equipo", detalle: "El NodeMCU llegó con falla de fábrica y la escuela lo reemplazó. Calibración del MQ-135 en aire limpio y código final con los pines nuevos (tareas 23 a 27)." },
-    { version: "0.13", fecha: "27/10/2026", responsable: "Sol Segatore", detalle: "Creación de la página web de presentación del proyecto (tarea 28)." },
+    { version: "0.11", fecha: "16/10/2026", responsable: "Todo el equipo / Mariano Muñoz, Luca Suarez", detalle: "Compra del NodeMCU ESP32 v1.1 y armado de una placa nueva por el cambio de pinout (tareas 21 y 22)." },
+    { version: "0.12", fecha: "23/10/2026", responsable: "Todo el equipo / Mariano Muñoz, Sol Segatore", detalle: "El NodeMCU llegó con falla de fábrica y la escuela lo reemplazó. Calibración del MQ-135 en aire limpio, código final con los pines nuevos y actualización de Gantt (tareas 23 a 27)." },
+    { version: "0.13", fecha: "27/10/2026", responsable: "Sol Segatore", detalle: "Creación y desarrollo de la página web de presentación del proyecto (tarea 28)." },
     { version: "0.14", fecha: "29/10/2026", responsable: "Todo el equipo", detalle: "Fallas de energía en el nodo. Al medir el módulo step-down se produjeron cortocircuitos y la institución lo reemplazó (tarea 29)." },
     { version: "0.15", fecha: "05/11/2026", responsable: "Sol Segatore, Luca Suarez, Mariano Muñoz", detalle: "Cambio de alimentación: el módulo step-down se reemplaza por el regulador 7805, entregado por el docente Gustavo Werner. Al soldarlo con los terminales invertidos, el ESP32 y el LCD recibieron 12 V y se quemaron. Se soldó en la orientación correcta y se le colocó un disipador (tareas 30 y 31)." },
     { version: "0.16", fecha: "06/11/2026", responsable: "Mariano Muñoz, Sol Segatore", detalle: "Evaluación del ESP32 dañado: tras una mañana de pruebas se compró otro, que se reemplazó el mismo día. Actualización de la carta Gantt (tareas 32 y 33)." },
-    { version: "0.17", fecha: "12/11/2026", responsable: "Sol Segatore, Mariano Muñoz", detalle: "La docente Lourdes Pedaci envió una orientación para armar la carpeta del proyecto y se avanzó con la página web con los datos al día (tarea 34)." },
+    { version: "0.17", fecha: "12/11/2026", responsable: "Sol Segatore, Mariano Muñoz, Luca Suarez", detalle: "La docente Lourdes Pedaci envió una orientación para armar la carpeta del proyecto y se avanzó con la página web con los datos al día (tarea 34)." },
     { version: "0.18", fecha: "17/11/2026", responsable: "Mariano Muñoz, Felipe Veneziale, Luca Suarez", detalle: "Montaje final: se fijaron el display, el MQ-135 y el DHT22 a la caja estanca con sellador de silicona, la placa con separadores y la batería con un riel DIN en forma de abrazadera. Se reforzaron con termocontraíble las soldaduras que se soltaron (tarea 35)." },
-    { version: "0.19", fecha: "17/11/2026", responsable: "Mariano Muñoz, Sol Segatore, Luca Suarez", detalle: "Se creó el dashboard propio del equipo, pedido por el docente Marcelo De Donato como actividad de su materia y para la exposición, y se actualizó la carpeta del proyecto (tareas 36 y 37)." },
-    { version: "0.20", fecha: "19/11/2026", responsable: "Todo el equipo", detalle: "Exposición del proyecto a familias, docentes y alumnos en la Semana de la Escuela Técnica (tarea 38)." }
+    { version: "0.19", fecha: "17/11/2026", responsable: "Mariano Muñoz, Sol Segatore, Luca Suarez", detalle: "Se creó el dashboard propio del equipo, pedido por el docente Marcelo De Donato como actividad de su materia y para la exposición, y se actualizó la carpeta del proyecto y la carta Gantt (tareas 36 y 37)." },
+    { version: "0.20", fecha: "19/11/2026", responsable: "Todo el equipo", detalle: "Exposición del proyecto a familias, docentes y alumnos en la Semana de la Escuela Técnica (tarea 38)." },
+    { version: "0.21", fecha: "20/11/2026", responsable: "Todo el equipo", detalle: "Defensa oral y muestra final del proyecto Smart Campus IoT a los auditores (tarea 39)." }
   ],
-
 
   // --- Presupuesto / BOM: precios en pesos argentinos (completar) ---
   bom: [
@@ -115,5 +115,282 @@ window.PROYECTO = {
     { fecha: "05/11/2026", prueba: "Conexión del regulador 7805 al nodo", esperado: "Nodo alimentado de forma estable", resultado: "El 7805 se soldó con los terminales invertidos: el ESP32 y el LCD recibieron 12 V y se quemaron. Se soldó en la orientación correcta con un disipador y el docente Gustavo Werner entregó otro LCD", estado: "falla" },
     { fecha: "06/11/2026", prueba: "Evaluación del ESP32 dañado", esperado: "Recuperar el ESP32 para entregar el nodo a tiempo", resultado: "Tras una mañana de pruebas se decidió comprar otro, para no comprometer las funciones base del nodo. Se compró y se reemplazó el mismo día", estado: "falla" }
     ,{ fecha: "17/11/2026", prueba: "Nodo montado en la caja estanca", esperado: "Nodo operativo con los componentes fijados", resultado: "El nodo quedó operativo al 100 % con los componentes fijados en la caja", estado: "ok" }
-  ]
+  ],
+
+  // --- Tareas de la carta Gantt (para detalle por integrante) ---
+  ganttTareas: [
+  {
+    "num": 1,
+    "detalle": "Planificación y capacitación de ideas básicas del proyecto",
+    "fecha": "19/06/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 2,
+    "detalle": "Adquisición de material de hardware necesario para iniciar el proyecto",
+    "fecha": "11/08/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 3,
+    "detalle": "Precalentamiento y prueba inicial de componentes (MQ-135, DHT22 y ESP)",
+    "fecha": "13/08/2026",
+    "asignado": "Suarez Luca",
+    "avance": 100
+  },
+  {
+    "num": 4,
+    "detalle": "Desarrollo de código para el funcionamiento del DHT22",
+    "fecha": "13/08/2026",
+    "asignado": "Muñoz Mariano / Leguizamon Thomas",
+    "avance": 100
+  },
+  {
+    "num": 5,
+    "detalle": "Desarrollo de código para el funcionamiento del MQ-135",
+    "fecha": "20/08/2026",
+    "asignado": "Segatore Sol / Dominici Luciano",
+    "avance": 100
+  },
+  {
+    "num": 6,
+    "detalle": "Consultas técnicas al auditor del proyecto para la compra de hardware",
+    "fecha": "21/08/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 7,
+    "detalle": "Actualización de la documentación (GANTT, lista de precios)",
+    "fecha": "25/08/2026",
+    "asignado": "Veneziale Felipe  / Segatore Sol / Leguizamon Thomas",
+    "avance": 100
+  },
+  {
+    "num": 8,
+    "detalle": "Integración de los códigos de ambos sensores y visualización en LCD",
+    "fecha": "01/09/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 9,
+    "detalle": "Dibujo del esquema de conexión del nodo",
+    "fecha": "03/09/2026",
+    "asignado": "Muñoz Mariano",
+    "avance": 100
+  },
+  {
+    "num": 10,
+    "detalle": "Compra de componentes necesarios para la placa del nodo",
+    "fecha": "18/09/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 11,
+    "detalle": "Planificación y dibujo del esquema de la placa del nodo",
+    "fecha": "22/09/2026",
+    "asignado": "Muñoz Mariano",
+    "avance": 100
+  },
+  {
+    "num": 12,
+    "detalle": "Soldadura y armado de la placa del nodo",
+    "fecha": "24/09/2026",
+    "asignado": "Muñoz Mariano",
+    "avance": 100
+  },
+  {
+    "num": 13,
+    "detalle": "Trazado de corte para el posterior mecanizado del gabinete del nodo",
+    "fecha": "25/09/2026",
+    "asignado": "Veneziale Felipe",
+    "avance": 100
+  },
+  {
+    "num": 14,
+    "detalle": "Mecanizado de la caja/gabinete del nodo",
+    "fecha": "29/09/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 15,
+    "detalle": "Adquisición de módulo reductor de tensión (step-down)",
+    "fecha": "30/09/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 16,
+    "detalle": "Conexión y prueba de los sensores con el montaje armado",
+    "fecha": "02/10/2026",
+    "asignado": "Mariano Muñoz / Segatore Sol / Dominici Luciano",
+    "avance": 100
+  },
+  {
+    "num": 17,
+    "detalle": "Actualización de la documentación (GANTT)",
+    "fecha": "06/10/2026",
+    "asignado": "Luca Suarez / Felipe Veneziale",
+    "avance": 100
+  },
+  {
+    "num": 18,
+    "detalle": "Soldadura de la antena al ESP32 C3 Mini",
+    "fecha": "08/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 19,
+    "detalle": "Conexión del divisor de tensión a la placa del nodo",
+    "fecha": "09/10/2026",
+    "asignado": "Suarez Luca / Muñoz Mariano / Veneziale Felipe",
+    "avance": 100
+  },
+  {
+    "num": 20,
+    "detalle": "Conexión y prueba de los sensores con el montaje armado (+ antena y divisor)",
+    "fecha": "09/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 21,
+    "detalle": "Adquisición del nuevo NodeMCU ESP32",
+    "fecha": "13/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 22,
+    "detalle": "Soldadura y armado de la placa del nodo (nueva, para el NodeMCU ESP32)",
+    "fecha": "16/10/2026",
+    "asignado": "Muñoz Mariano / Luca Suarez",
+    "avance": 100
+  },
+  {
+    "num": 23,
+    "detalle": "Actualización de la documentación (GANTT)",
+    "fecha": "20/10/2026",
+    "asignado": "Segatore Sol / Muñoz Mariano",
+    "avance": 100
+  },
+  {
+    "num": 24,
+    "detalle": "Prueba del nodo con el nuevo ESP32",
+    "fecha": "22/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 25,
+    "detalle": "Reemplazo del ESP32 y pruebas",
+    "fecha": "23/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 26,
+    "detalle": "Calibración y prueba del MQ-135 con el nuevo esquema",
+    "fecha": "23/10/2026",
+    "asignado": "Mariano Muñoz",
+    "avance": 100
+  },
+  {
+    "num": 27,
+    "detalle": "Actualización del código con el MQ-135 calibrado y adaptación para el nuevo ESP",
+    "fecha": "23/10/2026",
+    "asignado": "Muñoz Mariano / Segatore Sol",
+    "avance": 100
+  },
+  {
+    "num": 28,
+    "detalle": "Creación y desarrollo de la página web de presentación del proyecto",
+    "fecha": "22/10/2026",
+    "asignado": "Segatore Sol",
+    "avance": 100
+  },
+  {
+    "num": 29,
+    "detalle": "Medición del módulo step-down y reemplazo por incidente",
+    "fecha": "29/10/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 30,
+    "detalle": "Evaluación sobre la conexion del regulador de voltaje",
+    "fecha": "03/11/2026",
+    "asignado": "Sol Segatore / Luca Suarez",
+    "avance": 100
+  },
+  {
+    "num": 31,
+    "detalle": "Conexión del regulador 7805 a la placa del nodo.",
+    "fecha": "05/11/2026",
+    "asignado": "Mariano Muñoz",
+    "avance": 100
+  },
+  {
+    "num": 32,
+    "detalle": "Evaluación sobre el estado del nodo y compra de componente",
+    "fecha": "06/11/2026",
+    "asignado": "Mariano Muñoz",
+    "avance": 100
+  },
+  {
+    "num": 33,
+    "detalle": "Actualización de la documentación (GANTT)",
+    "fecha": "06/11/2026",
+    "asignado": "Sol Segatore",
+    "avance": 100
+  },
+  {
+    "num": 34,
+    "detalle": "Avance en el desarrollo de la pagina web (carpeta del proyecto)",
+    "fecha": "12/11/2026",
+    "asignado": "Sol Segatore / Mariano Muñoz / Luca Suarez",
+    "avance": 100
+  },
+  {
+    "num": 35,
+    "detalle": "Fijar los componentes a la caja",
+    "fecha": "13/11/2026",
+    "asignado": "Mariano Muñoz / Felipe Veneziale / Luca Suarez",
+    "avance": 100
+  },
+  {
+    "num": 36,
+    "detalle": "Avance en el desarrollo de la pagina web y desarrollo de dashboard del equipo.",
+    "fecha": "17/11/2026",
+    "asignado": "Mariano Muñoz / Sol Segatore / Luca Suarez",
+    "avance": 100
+  },
+  {
+    "num": 37,
+    "detalle": "Actualización de la documentación (GANTT)",
+    "fecha": "17/11/2026",
+    "asignado": "Mariano Muñoz",
+    "avance": 100
+  },
+  {
+    "num": 38,
+    "detalle": "Exposicion a las familias, docentes y alumnos ( Semana de la Escuela Tecnica )",
+    "fecha": "19/11/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  },
+  {
+    "num": 39,
+    "detalle": "Defensa oral y muestra final del proyecto a los auditores.",
+    "fecha": "20/11/2026",
+    "asignado": "Todo el equipo",
+    "avance": 100
+  }
+]
 };
