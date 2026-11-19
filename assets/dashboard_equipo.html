@@ -1,148 +1,150 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0a0e15">
-<title>Calidad de aire · Aula Taller · Smart Campus IoT</title>
+<meta name="color-scheme" content="light dark">
+<title>Calidad de aire · INFO A · Grupo 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,300..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Sistema visual de la guía "Orientación Proyecto IoT": tema oscuro en capas, un color por variable, semáforo con palabra + ícono */
-:root{--bg:#0a0e15;--surface:#111824;--surface-2:#172131;--surface-3:#1e2a3d;--border:#233047;--border-strong:#31415c;
---text:#e5eaf2;--text-2:#9ba7bb;--text-3:#6c7890;--accent:#ec8494;--accent-ink:#1a0c12;--accent-soft:rgba(236,132,148,.12);
---ok:#4ade80;--ok-soft:rgba(74,222,128,.12);--warn:#fbbf24;--warn-soft:rgba(251,191,36,.13);--bad:#f87171;--bad-soft:rgba(248,113,113,.13);
---c-temp:#fb923c;--c-hum:#38bdf8;--c-aire:#a3e635;
---font-display:"Archivo","Arial Narrow",system-ui,sans-serif;--font-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;--font-mono:"Geist Mono",ui-monospace,Consolas,monospace;
-color-scheme:dark}
+:root{
+  --bg:#f3f5f9;--surface:#ffffff;--surface-2:#f6f8fb;--surface-3:#e9edf3;--border:#dfe4ec;--border-strong:#c6cedb;
+  --text:#101828;--text-2:#475467;--text-3:#7a8699;
+  --brand:#14284b;--brand-2:#1d3a6b;--brand-ink:#ffffff;--accent:#1d4ed8;--accent-soft:rgba(29,78,216,.09);
+  --ok:#15803d;--ok-soft:#e8f6ee;--warn:#b45309;--warn-soft:#fdf2e0;--bad:#b91c1c;--bad-soft:#fdecec;
+  --c-temp:#c2410c;--c-hum:#0369a1;--c-ica:#0f766e;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
+  --font:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif;--font-mono:"Inter","Segoe UI",system-ui,Arial,sans-serif;
+  color-scheme:light}
+:root[data-theme=dark]{
+  --bg:#0b111b;--surface:#121a27;--surface-2:#182233;--surface-3:#212d42;--border:#243148;--border-strong:#34445f;
+  --text:#e8edf5;--text-2:#a1adc1;--text-3:#74819a;
+  --brand:#0d1830;--brand-2:#13224a;--accent:#6ea0ff;--accent-soft:rgba(110,160,255,.12);
+  --ok:#4ade80;--ok-soft:rgba(74,222,128,.12);--warn:#fbbf24;--warn-soft:rgba(251,191,36,.12);--bad:#f87171;--bad-soft:rgba(248,113,113,.13);
+  --c-temp:#fb923c;--c-hum:#38bdf8;--c-ica:#2dd4bf;
+  --shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.5 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,p,dl,dd,ul{margin:0;padding:0}
-h1,h2{font-family:var(--font-display);text-wrap:balance}
+h1,h2{text-wrap:balance}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--accent);color:var(--accent-ink);padding:.4rem .8rem;z-index:9;border-radius:8px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--accent);color:#fff;padding:.4rem .8rem;z-index:9;border-radius:6px}
 [hidden]{display:none!important}
 .num,.v,.kpi-val,code{font-variant-numeric:tabular-nums}
-.ic{width:20px;height:20px;flex:none}.ic-sm{width:16px;height:16px;flex:none}.ic-lg{width:26px;height:26px;flex:none}
-/* Estructura: contenido a todo el ancho, sin barra lateral */
-.main{max-width:1280px;width:100%;margin:0 auto;padding:20px;display:grid;gap:14px;align-content:start;min-width:0}
-@media(max-width:640px){.main{padding:12px}}
-/* Encabezado con estado */
-.d-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
-.d-title{display:flex;align-items:center;gap:12px;min-width:0}
-.big-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c-aire) 16%,transparent);color:var(--c-aire);flex:none}
-.d-title h1{font-size:1.4rem;font-stretch:90%;line-height:1.15}.d-title p{font-size:13px;color:var(--text-2)}
-.d-meta{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap;max-width:100%}
+.ic{width:20px;height:20px;flex:none}.ic-sm{width:16px;height:16px;flex:none}.ic-lg{width:24px;height:24px;flex:none}
+
+/* Barra superior corporativa */
+.topbar{background:var(--brand);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-in{max-width:1320px;margin:0 auto;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.logo{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;flex:none}
+.brand h1{font-size:1.15rem;font-weight:600;letter-spacing:.005em;line-height:1.2}
+.brand p{font-size:12.5px;color:rgba(255,255,255,.72)}
+.actions{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap;max-width:100%;transition:background-color .25s ease,color .25s ease}
 .pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.mute{background:var(--surface-2);color:var(--text-2)}
 .pill.mute b{font-weight:500;color:var(--text);font-family:var(--font-mono);font-size:12px}
-.live-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
-.banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--bad-soft);color:var(--bad);font-size:14px;border:1px solid rgba(248,113,113,.3)}
-.banner b{color:var(--text);font-weight:600}
-/* Indicadores */
-.top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:700px){.top{grid-template-columns:1fr}}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;display:grid;gap:10px;min-width:0;align-content:start}
-.kpi{border-color:color-mix(in srgb,var(--c) 45%,var(--border));background:linear-gradient(160deg,color-mix(in srgb,var(--c) 9%,var(--surface)) 0,var(--surface) 70%)}
+.topbar .pill{border:1px solid rgba(255,255,255,.14)}
+.topbar .pill.mute{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8)}.topbar .pill.mute b{color:#fff}
+.topbar .pill.ok{background:rgba(74,222,128,.16);color:#86efac}.topbar .pill.bad{background:rgba(248,113,113,.18);color:#fecaca}
+.live-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 2.2s infinite ease-in-out}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25);opacity:.6}}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.06);color:#fff;font:500 13px var(--font);cursor:pointer;transition:background-color .18s ease,border-color .18s ease}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn[aria-pressed=true]{background:#fff;color:var(--brand);border-color:#fff}
+.btn.icon{padding:6px 10px}
+.btn .sw-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.5}
+.btn[aria-pressed=true] .sw-dot{background:#d97706;opacity:1}
+
+.main{max-width:1320px;width:100%;margin:0 auto;padding:20px 24px 32px;display:grid;gap:16px;align-content:start;min-width:0}
+@media(max-width:640px){.main{padding:12px 12px 24px}.topbar-in{padding:12px}}
+.banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:13.5px;border:1px solid}
+.banner b{font-weight:600}
+.banner.bad{background:var(--bad-soft);color:var(--bad);border-color:color-mix(in srgb,var(--bad) 30%,transparent)}
+.banner.demo{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 35%,transparent)}
+.banner.demo span{color:var(--text)}
+
+.top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media(max-width:760px){.top{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--c);border-radius:10px;padding:18px 20px;display:grid;gap:14px;min-width:0;align-content:start;box-shadow:var(--shadow)}
 .kpi-top{display:flex;align-items:center;gap:10px}
-.kpi-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c);flex:none}
-.kpi-name{font-size:13px;color:var(--text-2);line-height:1.25}.kpi-name small{display:block;font:11px var(--font-mono);color:var(--text-3)}
-.kpi-top .pill{margin-left:auto}
+.kpi-ico{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 11%,transparent);color:var(--c);flex:none}
+.kpi-name{font-size:14px;font-weight:600;line-height:1.25}.kpi-name small{display:block;font:400 11px var(--font-mono);color:var(--text-3);margin-top:1px}
+.kpi-top .pill{margin-left:auto}.kpi .st{font-size:12.5px;padding:4px 11px 4px 8px}
 .kpi-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
-.kpi-val{font-family:var(--font-display);font-stretch:88%;font-weight:700;font-size:2.4rem;line-height:1;color:var(--c)}
-.kpi-val small{font:500 .95rem var(--font-body);color:var(--text-2);margin-left:4px}
-.kpi-delta{font-size:12px;color:var(--text-3);margin-top:4px;min-height:18px}
-.spark{width:110px;height:34px;flex:none}
-.rng{font-size:12px;color:var(--text-3)}
-/* Jerarquía: nivel 1 = temperatura, humedad e ICA (cifra grande, mismo tamaño); nivel 2 = rangos, diferencias y salud del nodo (chico, en gris) */
-.kpi{padding:18px;gap:14px}
-.kpi-val{font-size:clamp(3.4rem,6vw,5.4rem)}.kpi-val small{font-size:1.25rem}
-.kpi-name{font-size:15px;color:var(--text)}.kpi-name small{font-size:11px}
-.kpi-ico{width:40px;height:40px}.kpi .st{font-size:14px;padding:5px 12px 5px 9px}
-.spark{width:130px;height:44px}
-.rng,.kpi-delta{font-size:11.5px}
+.kpi-val{font-weight:600;font-size:clamp(2.8rem,5vw,4.4rem);line-height:1;color:var(--text);letter-spacing:-.02em}
+.kpi-val small{font:500 1.1rem var(--font);color:var(--text-3);margin-left:6px;letter-spacing:0}
+.kpi-delta{font-size:12px;color:var(--text-3);margin-top:6px;min-height:18px}
+.spark{width:130px;height:44px;flex:none}
+.rng{font-size:12px;color:var(--text-3);padding-top:12px;border-top:1px solid var(--border)}
 .stale .kpi-val{color:var(--text-3)}.stale .spark{opacity:.45}
-/* Paneles */
-.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:14px}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px}
 @media(max-width:980px){.grid{grid-template-columns:1fr}}
-.col{display:grid;gap:14px;align-content:start;min-width:0}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;min-width:0;display:grid;gap:10px;align-content:start}
-.panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.panel-h h2{font-size:14px;font-weight:600;font-family:var(--font-body)}.panel-h>span{font-size:12px;color:var(--text-3)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tabs button{background:var(--surface-2);border:1px solid var(--border-strong);color:var(--text);border-radius:8px;padding:5px 12px;font:500 13px var(--font-body);cursor:pointer;min-height:36px}
-.tabs button:hover{background:var(--surface-3)}
-.tabs button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.col{display:grid;gap:16px;align-content:start;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;min-width:0;display:grid;gap:12px;align-content:start;box-shadow:var(--shadow)}
+.panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.panel-h h2{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-2)}.panel-h>span{font-size:12px;color:var(--text-3)}
+.tabs{display:inline-flex;gap:2px;flex-wrap:wrap;background:var(--surface-3);padding:3px;border-radius:8px}
+.tabs button{background:transparent;border:0;color:var(--text-2);border-radius:6px;padding:5px 12px;font:500 13px var(--font);cursor:pointer;min-height:32px;transition:background-color .18s ease,color .18s ease}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-pressed=true]{background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
 .chart svg{width:100%;height:auto;display:block}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--text-2)}
-.legend i,.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
-/* Semáforo (medidor) */
-.gauge-box #gauge{display:block;margin:0 auto;width:100%;max-width:340px}.gauge-box #gauge.old{opacity:.45}
+.legend i,.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.gauge-box #gauge{display:block;margin:0 auto;width:100%;max-width:340px;transition:opacity .25s ease}.gauge-box #gauge.old{opacity:.45}
 .cap{text-align:center;font-size:12px;color:var(--text-2)}
-.chip{display:flex;width:fit-content;max-width:100%;margin:0 auto;gap:8px;align-items:center;border:1.5px solid var(--border);border-radius:999px;padding:5px 14px;font-weight:500;font-size:13.5px;background:var(--surface-2)}
+.chip{display:flex;width:fit-content;max-width:100%;margin:0 auto;gap:8px;align-items:center;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;font-weight:500;font-size:13.5px;background:var(--surface-2);transition:border-color .25s ease}
 .leyenda{list-style:none;display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;font-size:12px;color:var(--text-2)}
-/* Alertas y salud */
 .alerts{list-style:none;display:grid;gap:8px;max-height:300px;overflow:auto}
-.alerts li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:13px;padding:8px 10px;border-radius:9px;background:var(--surface-2)}
+.alerts li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:13px;padding:8px 10px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)}
 .alerts small{font-size:12px;color:var(--text-3)}.alerts .t{font:12px var(--font-mono);color:var(--text-3)}
 .alerts .empty{grid-template-columns:auto 1fr;color:var(--text-2)}
 .health{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.health div{background:var(--surface-2);border-radius:9px;padding:8px 10px;min-width:0}
-.health dt{font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em}
+.health div{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;min-width:0}
+.health dt{font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em}
 .health dd{margin-top:2px;font:12px var(--font-mono);overflow-wrap:anywhere}
 code{color:var(--accent)}
+.foot{text-align:center;font-size:12px;color:var(--text-3)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-/* Pantalla completa (F11): todo entra en una pantalla, sin scroll. Tres tarjetas con cifras enormes, semáforo y últimas alertas */
-.kiosco body{height:100vh;overflow:hidden}
-.kiosco .spark,.kiosco .rng,.kiosco .kpi-delta,.kiosco .col-l,.kiosco .cap,.kiosco .leyenda,.kiosco .panel-h>span{display:none}
-.kiosco .main{max-width:none;height:100vh;padding:1.5vh 1.5vw;display:flex;flex-direction:column;gap:1.5vh;overflow:hidden}
-.kiosco .d-head,.kiosco #viejo{flex:none}
-.kiosco .d-title h1{font-size:clamp(1.2rem,3.4vh,2.4rem)}.kiosco .d-title p{font-size:clamp(.8rem,2vh,1.3rem)}
-.kiosco .top{flex:1.25 1 0;min-height:0;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:1.2vw}
-.kiosco .kpi{min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:2vh;padding:1.5vh 1.5vw}
-.kiosco .kpi-top{flex:none}.kiosco .kpi-row{justify-content:flex-start}
-.kiosco .kpi-val{font-size:clamp(3rem,19vh,11rem)}.kiosco .kpi-val small{font-size:clamp(1rem,3.4vh,2.2rem)}
-.kiosco .kpi-name,.kiosco .kpi .st,.kiosco .pill,.kiosco .chip,.kiosco .alerts li,.kiosco #viejo{font-size:clamp(.9rem,2.4vh,1.6rem)}
-.kiosco .pill.mute b{font-size:inherit}
-.kiosco .kpi-ico{width:clamp(34px,5vh,60px);height:clamp(34px,5vh,60px)}
-.kiosco .grid{flex:1 1 0;min-height:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr)}
-.kiosco .col-r{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr);height:100%;min-height:0;gap:1.2vw}
-.kiosco .panel{min-height:0;overflow:hidden}
-.kiosco .gauge-box{display:flex;flex-direction:column}.kiosco .gauge-box #gauge{flex:1 1 0;min-height:0;max-width:none;width:100%}
-.kiosco .alerts{max-height:none;overflow:hidden}.kiosco .alerts li:nth-child(n+4){display:none}
+
 </style>
-<!-- MQTT.js desde CDN (versión fija) -->
 <script src="https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js"></script>
 </head>
 <body>
 <a class="skip" href="#principal">Ir al contenido</a>
-<main class="main" id="principal">
-  <header class="d-head">
-    <div class="d-title"><span class="big-ico" data-ic="aire" data-cls="ic-lg"></span>
-      <div><h1>Calidad de aire</h1><p>Nodo <span id="nodo">aire-01</span> · Aula Taller · MQ-135 + DHT22</p></div></div>
-    <div class="d-meta">
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="logo" data-ic="aire" data-cls="ic-lg"></span>
+      <div><h1>Monitoreo de calidad del aire</h1><p>Nodo <span id="nodo">INFO A · G1</span> · Aula Taller · MQ-135 + DHT22</p></div></div>
+    <div class="actions">
       <span id="estado" class="pill mute" role="status" aria-live="polite"></span>
       <span class="pill mute"><span data-ic="clock" data-cls="ic-sm" style="display:contents"></span>Último dato <b id="ultimo" class="num">—</b> · <span id="hace">sin datos todavía</span></span>
+      <button class="btn" id="btnDemo" type="button" aria-pressed="false" title="Simula lecturas de sensores para pruebas y presentaciones"><span class="sw-dot"></span>Modo demo</button>
+      <button class="btn icon" id="btnTema" type="button" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span id="icoTema" style="display:contents"></span></button>
     </div>
-  </header>
-  <div id="viejo" class="banner" hidden><span data-ic="wifiOff" data-cls="ic" style="display:contents"></span><span id="viejoTxt"></span></div>
+  </div>
+</header>
+
+<main class="main" id="principal">
+  <div id="demoBar" class="banner demo" hidden><span data-ic="warn" data-cls="ic" style="display:contents"></span><span><b>Modo demo activo.</b> Los datos mostrados son simulados; las lecturas reales del nodo se ignoran hasta desactivarlo.</span></div>
+  <div id="viejo" class="banner bad" hidden><span data-ic="wifiOff" data-cls="ic" style="display:contents"></span><span id="viejoTxt"></span></div>
 
   <section class="top" aria-label="Mediciones actuales">
-    <article class="kpi" id="c-temp" style="--c:#fb923c">
+    <article class="kpi" id="c-temp" style="--c:var(--c-temp)">
       <div class="kpi-top"><span class="kpi-ico" data-ic="temp"></span><span class="kpi-name">Temperatura<small>DHT22</small></span><span class="st pill mute"></span></div>
       <div class="kpi-row"><div><div class="kpi-val"><span class="v">—</span><small>°C</small></div><div class="kpi-delta dif"></div></div><svg class="spark" viewBox="0 0 110 34" aria-hidden="true"></svg></div>
       <p class="rng">Normal 18–26 °C · Atención 16–18 o 26–30 °C</p>
     </article>
-    <article class="kpi" id="c-hum" style="--c:#38bdf8">
+    <article class="kpi" id="c-hum" style="--c:var(--c-hum)">
       <div class="kpi-top"><span class="kpi-ico" data-ic="hum"></span><span class="kpi-name">Humedad<small>DHT22</small></span><span class="st pill mute"></span></div>
       <div class="kpi-row"><div><div class="kpi-val"><span class="v">—</span><small>%</small></div><div class="kpi-delta dif"></div></div><svg class="spark" viewBox="0 0 110 34" aria-hidden="true"></svg></div>
       <p class="rng">Normal 40–60 % · Atención 30–40 o 60–70 %</p>
     </article>
-    <article class="kpi" id="c-ica" style="--c:#a3e635">
+    <article class="kpi" id="c-ica" style="--c:var(--c-ica)">
       <div class="kpi-top"><span class="kpi-ico" data-ic="aire"></span><span class="kpi-name">Índice de calidad del aire<small>MQ-135</small></span><span class="st pill mute"></span></div>
       <div class="kpi-row"><div><div class="kpi-val"><span class="v">—</span><small>ICA</small></div><div class="kpi-delta dif"></div></div><svg class="spark" viewBox="0 0 110 34" aria-hidden="true"></svg></div>
       <p class="rng">Escala 0–500 · Buena 0–50 · Moderada 51–100</p>
@@ -152,16 +154,16 @@ code{color:var(--accent)}
   <div class="grid">
     <div class="col col-l">
       <section class="panel" aria-labelledby="t-hist">
-        <div class="panel-h"><h2 id="t-hist">Últimas 24 horas</h2>
+        <div class="panel-h"><h2 id="t-hist">Tendencia · últimos <span id="lblMin">15</span> minutos</h2>
           <div class="tabs" role="group" aria-label="Variable del gráfico">
             <button data-v="temp" aria-pressed="false">Temperatura</button><button data-v="hum" aria-pressed="false">Humedad</button><button data-v="ica" aria-pressed="true">ICA</button>
           </div></div>
-        <span class="kpi-delta" id="chartSub"></span>
-        <div class="chart" id="hist" role="img" aria-label="Gráfico histórico de 24 horas"></div>
+        <span class="kpi-delta" id="chartSub" style="margin:0"></span>
+        <div class="chart" id="hist" role="img" aria-label="Gráfico histórico reciente"></div>
         <div class="legend" id="chartLegend"></div>
       </section>
       <section class="panel" aria-labelledby="t-sal">
-        <div class="panel-h"><h2 id="t-sal">Salud del nodo</h2><span>qué llega y desde dónde</span></div>
+        <div class="panel-h"><h2 id="t-sal">Estado del nodo</h2><span>qué llega y desde dónde</span></div>
         <dl class="health">
           <div><dt>Señal WiFi</dt><dd id="rssi">—</dd></div><div><dt>Mensajes / min</dt><dd id="mpm">0</dd></div>
           <div><dt>Tópico</dt><dd><code id="topico"></code></dd></div><div><dt>Fuente del dato</dt><dd id="fuente">—</dd></div>
@@ -170,81 +172,115 @@ code{color:var(--accent)}
     </div>
     <div class="col col-r">
       <section class="panel gauge-box" aria-labelledby="t-ica">
-        <div class="panel-h"><h2 id="t-ica">Semáforo</h2><span>MQ-135</span></div>
+        <div class="panel-h"><h2 id="t-ica">Semáforo ICA</h2><span>MQ-135</span></div>
         <svg id="gauge" viewBox="0 0 260 150" role="img" aria-label="Medidor ICA"></svg>
         <p class="cap">Índice de calidad del aire (ICA)</p>
         <p class="chip" id="chip"></p>
         <ul class="leyenda" id="leyenda"></ul>
       </section>
       <section class="panel" aria-labelledby="t-al">
-        <div class="panel-h"><h2 id="t-al">Alertas</h2><span>sesión actual</span></div>
+        <div class="panel-h"><h2 id="t-al">Registro de alertas</h2><span>sesión actual</span></div>
         <ul id="alertas" class="alerts"></ul>
       </section>
     </div>
   </div>
+  <p class="foot">INFO A · Grupo 1 · Panel de monitoreo ambiental</p>
 </main>
 <script>
 "use strict";
-/* ============ 1. CONFIGURACIÓN (lo único que hay que cambiar) ============ */
+/* ============ 1. CONFIGURACIÓN ESTRICTA INFO A · GRUPO 1 (SIN CAMBIOS) ============ */
 const CONFIG = {
-  BROKER_URL: "ws://proyecto2026.webhop.net:9001",  // Mosquitto por WebSockets
-  TOPICO: "6to_info/A/G1/#",                         // tópico del Grupo 1 (comodín)
-  DASH_URL: "http://proyecto2026.webhop.net:8085/",  // página del servidor que se lee por HTTP
-  DASH_CADA_S: 2,                                    // cada cuántos segundos se lee el servidor
-  SIN_DATOS_MS: 5 * 60 * 1000                   // 5 min sin datos = nodo desconectado
+  BROKER_URL: "ws://proyecto2026.webhop.net:9001",
+  TOPICOS_INFO_A_G1: [
+    "6to_info/A/G1/#",
+    "6to_info/a/G1/#",
+    "6to_info/a/g1/#",
+    "infoA/G1/#",
+    "info_a/G1/#"
+  ],
+  DASH_URL: "http://proyecto2026.webhop.net:8085/",
+  API_CANDIDATOS: [
+    "http://proyecto2026.webhop.net:8085/api/sensores",
+    "http://proyecto2026.webhop.net:8085/api/datos",
+    "http://proyecto2026.webhop.net:8085/api/ultimos",
+    "http://proyecto2026.webhop.net:8085/api/lecturas"
+  ],
+  VENTANA_MIN: 15,          // Periodo corto del historial (minutos)
+  SONDEO_MS: 4000,
+  FETCH_TIMEOUT_MS: 1400,
+  SIN_DATOS_MS: 5 * 60 * 1000
 };
 
-/* ============ 2. REGLAS: rangos válidos, umbrales y categorías ICA ============ */
-// Rango físico de cada sensor: fuera de esto el dato se ignora
+/* ============ 2. REGLAS ============ */
 const RANGO = { temp: [-40, 80], hum: [0, 100], ica: [0, 500], rssi: [-120, 0] };
-const CAT_ICA = [ // semáforo ICA del brief
+const CAT_ICA = [
   { max: 50,  n: "Buena", c: "#4ADE80" }, { max: 100, n: "Moderada", c: "#FACC15" },
   { max: 150, n: "Poco saludable para grupos sensibles", c: "#FB923C" },
   { max: 200, n: "Poco saludable", c: "#F87171" }, { max: 300, n: "Muy poco saludable", c: "#A855F7" },
   { max: 500, n: "Peligroso", c: "#A16207" }];
 const catICA = ica => CAT_ICA.find(x => ica <= x.max) || CAT_ICA[5];
-// Nivel 0 = Normal, 1 = Atención, 2 = Alerta (cada uno con su palabra, color e ícono)
 function nivelTemp(t) { return t >= 18 && t <= 26 ? 0 : (t >= 16 && t < 18) || (t > 26 && t <= 30) ? 1 : 2; }
 function nivelHum(h)  { return h >= 40 && h <= 60 ? 0 : (h >= 30 && h < 40) || (h > 60 && h <= 70) ? 1 : 2; }
-function nivelICA(i) { return i <= 100 ? 0 : i <= 150 ? 1 : 2; }   // el ICA llega directo del sensor
-const NIVEL = [{ t: "Normal", c: "#4ADE80" }, { t: "Atención", c: "#FBBF24" }, { t: "Alerta", c: "#F87171" }];
+function nivelICA(i) { return i <= 100 ? 0 : i <= 150 ? 1 : 2; }
+const NIVEL = [{ t: "Normal", c: "#16A34A" }, { t: "Atención", c: "#D97706" }, { t: "Alerta", c: "#DC2626" }];
 
-/* Íconos de la guía: trazo 1,75 px sobre grilla de 24 × 24, heredan color con currentColor */
 const ICONS = {
   temp: '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><path d="M11.5 17.5V10"/>',
   hum: '<path d="M12 2.7s-6 6.6-6 11.3a6 6 0 0 0 12 0c0-4.7-6-11.3-6-11.3z"/><path d="M9 15a3 3 0 0 0 3 3"/>',
   aire: '<path d="M3 8h10a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
-  red: '<path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><path d="M12 19.5h.01"/>',
   ok: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
   warn: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16.5h.01"/>',
   bad: '<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
-  grid: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
-  chart: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-7"/>',
-  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
-  cpu: '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  wifiOff: '<path d="M8.5 16a5 5 0 0 1 7 0M12 19.5h.01M3 3l18 18M5 12.5a10 10 0 0 1 3.5-2.2M2 8.8a15 15 0 0 1 4.2-2.9M10 5.1A15 15 0 0 1 22 8.8"/>'
+  wifiOff: '<path d="M8.5 16a5 5 0 0 1 7 0M12 19.5h.01M3 3l18 18M5 12.5a10 10 0 0 1 3.5-2.2M2 8.8a15 15 0 0 1 4.2-2.9M10 5.1A15 15 0 0 1 22 8.8"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
-const NK = ["ok", "warn", "bad"];   // nivel 0/1/2 -> clase y forma de ícono distinta (no depender solo del color)
+const NK = ["ok", "warn", "bad"];
 const svgNivel = n => ic(NK[n], "ic-sm").replace("<svg ", `<svg style="color:${NIVEL[n].c}" `);
 document.querySelectorAll("[data-ic]").forEach(e => { e.innerHTML = ic(e.dataset.ic, e.dataset.cls || "ic"); });
 
 /* ============ 3. ESTADO ============ */
 const VARS = {
-  temp: { id: "c-temp", dec: 1, nivel: nivelTemp, y: [10, 36], col: "#FB923C", nom: "Temperatura", u: "°C" },
-  hum:  { id: "c-hum",  dec: 0, nivel: nivelHum,  y: [20, 80], col: "#38BDF8", nom: "Humedad", u: "%" },
-  ica:  { id: "c-ica",  dec: 0, nivel: nivelICA, y: [0, 300], col: "#a3e635", nom: "Calidad del aire", u: "ICA" }
+  temp: { id: "c-temp", dec: 1, nivel: nivelTemp, y: [10, 36], col: "var(--c-temp)", nom: "Temperatura", u: "°C" },
+  hum:  { id: "c-hum",  dec: 0, nivel: nivelHum,  y: [20, 80], col: "var(--c-hum)", nom: "Humedad", u: "%" },
+  ica:  { id: "c-ica",  dec: 0, nivel: nivelICA, y: [0, 300], col: "var(--c-ica)", nom: "Calidad del aire", u: "ICA" }
 };
-const hist = [];            // {t: milisegundos, temp, hum, co}
-const alertas = [];         // {t, nivel, motivo}
-const llegadas = [];        // instantes de recepción (para mensajes por minuto)
-const ultNivel = {};        // último nivel por variable (evita alertas repetidas)
-let ultimoRx = 0, varGrafico = "ica";
+const hist = [];
+const alertas = [];
+let llegadas = [];
+const ultNivel = {};
+let ultimoRx = 0, varGrafico = "ica", ultEstadoOff = null, ultFuente = "", rafId = null;
 const $ = s => document.querySelector(s);
 
-/* ============ 4. VALIDACIÓN del JSON recibido ============ */
-// Nombres de campo -> variable (acepta temp/temperatura, hum/humedad, ica/aire/calidad...)
+const elEstado = $("#estado");
+const elHace = $("#hace");
+const elViejo = $("#viejo");
+const elViejoTxt = $("#viejoTxt");
+const elMpm = $("#mpm");
+const elFuente = $("#fuente");
+const elUltimo = $("#ultimo");
+const elNodo = $("#nodo");
+const elRssi = $("#rssi");
+const elAlertas = $("#alertas");
+const elGauge = $("#gauge");
+const elChip = $("#chip");
+const elLeyenda = $("#leyenda");
+const elHist = $("#hist");
+const elChartSub = $("#chartSub");
+const elChartLegend = $("#chartLegend");
+$("#lblMin").textContent = CONFIG.VENTANA_MIN;
+
+function agendarPintado() {
+  if (rafId !== null) return;
+  rafId = requestAnimationFrame(() => {
+    rafId = null;
+    pintar();
+  });
+}
+
+/* ============ 4. VALIDACIÓN ============ */
 const claseDe = k => { k = String(k).toLowerCase();
   return /temp/.test(k) ? "temp" : /hum/.test(k) ? "hum" : /rssi/.test(k) ? "rssi" : /(ica|calidad|aire|\bair|mq|gas|ppm|contamin)/.test(k) ? "ica" : null; };
 function normalizar(m) { const o = { nodo: m.nodo, ts: m.ts };
@@ -253,49 +289,50 @@ function validarObj(m) {
   const ok = {};
   for (const k of Object.keys(RANGO)) {
     const v = m[k];
-    if (v === null || v === "" || v === undefined || typeof v === "boolean") continue;  // vacío: se ignora
+    if (v === null || v === "" || v === undefined || typeof v === "boolean") continue;
     const n = Number(String(v).replace(",", "."));
-    if (Number.isFinite(n) && n >= RANGO[k][0] && n <= RANGO[k][1]) ok[k] = n;          // fuera de rango: se ignora
+    if (Number.isFinite(n) && n >= RANGO[k][0] && n <= RANGO[k][1]) ok[k] = n;
   }
-  if (!["temp", "hum", "ica"].some(k => k in ok)) return null;                          // sin nada útil: descartar
+  if (!["temp", "hum", "ica"].some(k => k in ok)) return null;
   ok.nodo = typeof m.nodo === "string" ? m.nodo.slice(0, 30) : null;
   const t = Date.parse(m.ts); ok.t = Number.isFinite(t) ? t : Date.now();
   return ok;
 }
-function validar(txt) {   // mensaje MQTT en JSON
+function validar(txt) {
   let m; try { m = JSON.parse(txt); } catch { return null; }
   return m && typeof m === "object" ? validarObj(normalizar(m)) : null;
 }
 
 /* ============ 5. PROCESAR UN DATO NUEVO ============ */
 function recibir(d) {
-  ultimoRx = Date.now(); llegadas.push(ultimoRx);
+  const ahora = Date.now();
+  const ventanaMs = CONFIG.VENTANA_MIN * 60e3;
+  ultimoRx = ahora;
+  llegadas.push(ahora);
   const ult = hist[hist.length - 1] || {};
-  // si falta una variable, se conserva la última conocida
   const p = { t: d.t, temp: d.temp ?? ult.temp, hum: d.hum ?? ult.hum, ica: d.ica ?? ult.ica };
   hist.push(p);
-  while (hist.length && hist[0].t < Date.now() - 24 * 3600e3) hist.shift();   // solo 24 h
-  if (d.nodo) $("#nodo").textContent = d.nodo;
-  if (d.rssi !== undefined) $("#rssi").textContent = d.rssi + " dBm · " + (d.rssi >= -60 ? "buena" : d.rssi >= -75 ? "media" : "débil");
-  $("#ultimo").textContent = new Date(d.t).toLocaleTimeString("es-AR");
+  while (hist.length && hist[0].t < ahora - ventanaMs) hist.shift();
+  if (d.nodo) elNodo.textContent = d.nodo;
+  if (d.rssi !== undefined) elRssi.textContent = d.rssi + " dBm · " + (d.rssi >= -60 ? "buena" : d.rssi >= -75 ? "media" : "débil");
+  elUltimo.textContent = new Date(d.t).toLocaleTimeString("es-AR");
   detectarAlertas(p);
-  pintar();
+  agendarPintado();
 }
 function detectarAlertas(p) {
   for (const k in VARS) {
     if (p[k] === undefined) continue;
     const n = VARS[k].nivel(p[k]);
-    if (n > 0 && n > (ultNivel[k] ?? 0))   // solo si empeora, para no llenar la lista
+    if (n > 0 && n > (ultNivel[k] ?? 0))
       alertas.unshift({ t: p.t, nivel: n, motivo: `${VARS[k].nom} ${p[k].toFixed(VARS[k].dec)} ${VARS[k].u}` });
     ultNivel[k] = n;
   }
-  alertas.length = Math.min(alertas.length, 30);
+  if (alertas.length > 30) alertas.length = 30;
 }
-
 
 /* ============ 6. DIBUJAR PANTALLA ============ */
 const hace = ms => { const s = Math.max(0, Math.round(ms / 1000)); return s < 60 ? s + " s" : s < 3600 ? Math.floor(s / 60) + " min" : Math.floor(s / 3600) + " h"; };
-function spark(v, col) {   // mini tendencia con área y último punto resaltado
+function spark(v, col) {
   if (v.length < 2) return "";
   const w = 110, h = 34, p = 3, mn = Math.min(...v), r = (Math.max(...v) - mn) || 1;
   const q = v.map((y, i) => [p + i * (w - 2 * p) / (v.length - 1), h - p - (y - mn) / r * (h - 2 * p)]);
@@ -313,40 +350,44 @@ function pintar() {
     const n = V.nivel(v), st = el.querySelector(".st");
     st.className = "st pill " + NK[n];
     st.innerHTML = svgNivel(n) + `<span>${NIVEL[n].t}${viejo ? " · dato viejo" : ""}</span>`;
-    el.querySelector(".dif").textContent = difHora(k, v, V);
-    el.querySelector(".spark").innerHTML = spark(hist.slice(-40).map(h => h[k]).filter(x => x !== undefined), V.col);
+    el.querySelector(".dif").textContent = difReciente(k, v, V);
+    el.querySelector(".spark").innerHTML = spark(hist.slice(-30).map(h => h[k]).filter(x => x !== undefined), V.col);
   }
   if (p.ica !== undefined) medidor(p.ica, viejo);
   pintarAlertas(); dibujar();
 }
-function difHora(k, v, V) {   // diferencia con el dato de hace 1 hora
-  const obj = Date.now() - 3600e3;
-  const ref = hist.filter(h => h[k] !== undefined && Math.abs(h.t - obj) < 15 * 60e3).sort((a, b) => Math.abs(a.t - obj) - Math.abs(b.t - obj))[0];
-  if (!ref) return "Sin dato de hace 1 h";
-  const d = v - ref[k];
-  return `${d > 0 ? "▲ +" : d < 0 ? "▼ " : "= "}${d.toFixed(V.dec)} ${V.u} vs. hace 1 h`;
+function difReciente(k, v, V) {
+  const primero = hist.find(h => h[k] !== undefined);
+  if (!primero || primero === hist[hist.length - 1]) return `Últimos ${CONFIG.VENTANA_MIN} min`;
+  const d = v - primero[k];
+  return `${d > 0 ? "▲ +" : d < 0 ? "▼ " : "= "}${d.toFixed(V.dec)} ${V.u} en ${CONFIG.VENTANA_MIN} min`;
 }
-
 function pintarAlertas() {
-  $("#alertas").innerHTML = alertas.length ? alertas.map(a =>
+  elAlertas.innerHTML = alertas.length ? alertas.map(a =>
     `<li class="${NK[a.nivel]}">${svgNivel(a.nivel)}<span>${a.motivo}<br><small>${NIVEL[a.nivel].t}</small></span><span class="t">${new Date(a.t).toLocaleTimeString("es-AR")}</span></li>`).join("")
     : ultimoRx ? `<li class="empty">${svgNivel(0)}<span>Sin alertas: todo dentro de los valores normales.</span></li>`
     : `<li class="empty">${ic("clock", "ic-sm")}<span>Sin datos todavía: las alertas aparecerán cuando llegue la primera lectura.</span></li>`;
 }
-function pintarEstado() {   // En línea / Desconectado (se revisa cada segundo)
-  const off = !ultimoRx || Date.now() - ultimoRx > CONFIG.SIN_DATOS_MS;
-  const e = $("#estado"); e.className = "pill " + (off ? "bad" : "ok");
-  e.innerHTML = off ? ic("wifiOff", "ic-sm") + "Desconectado" : '<span class="live-dot"></span>En línea';
-  $("#hace").textContent = ultimoRx ? "hace " + hace(Date.now() - ultimoRx) : "sin datos todavía";
-  $("#viejo").hidden = !off;
-  $("#viejoTxt").innerHTML = ultimoRx ? "<b>Nodo desconectado.</b> Hace más de 5 minutos que no llegan datos: los valores que ves son los últimos recibidos, no los actuales."
-    : "<b>Sin datos todavía.</b> El nodo está apagado o no está conectado en este momento.";
-  llegadas.splice(0, llegadas.length, ...llegadas.filter(t => Date.now() - t < 60e3));
-  $("#mpm").textContent = llegadas.length;
-  if (off && ultimoRx) pintar();   // marcar valores como viejos
+function pintarEstado() {
+  const ahora = Date.now();
+  const off = !ultimoRx || (ahora - ultimoRx > CONFIG.SIN_DATOS_MS);
+  elHace.textContent = ultimoRx ? "hace " + hace(ahora - ultimoRx) : "sin datos todavía";
+  llegadas = llegadas.filter(t => ahora - t < 60e3);
+  elMpm.textContent = llegadas.length;
+
+  if (off !== ultEstadoOff) {
+    ultEstadoOff = off;
+    elEstado.className = "pill " + (off ? "bad" : "ok");
+    elEstado.innerHTML = off ? ic("wifiOff", "ic-sm") + "Desconectado" : '<span class="live-dot"></span>' + (DEMO.on ? "Simulación" : "En línea");
+    elViejo.hidden = !off;
+    elViejoTxt.innerHTML = ultimoRx
+      ? "<b>Nodo desconectado.</b> Hace más de 5 minutos que no llegan datos de INFO A · G1."
+      : "<b>Sin datos todavía de INFO A · G1.</b> Esperando lecturas desde el broker MQTT o servidor web.";
+    if (ultimoRx) agendarPintado();
+  }
 }
 
-/* ============ 6b. MEDIDOR ICA en arco (semáforo) ============ */
+/* ============ 6b. MEDIDOR ICA ============ */
 const ACCION = ["Buena: aire limpio", "Moderada: sin acción", "Atención: ventilar", "Alerta: ventilar y limitar actividad", "Alerta: ventilar y salir del aula", "Peligro: salir del aula"];
 function medidor(ica, viejo) {
   const cx = 130, cy = 126, r = 98, n = CAT_ICA.length;
@@ -354,156 +395,277 @@ function medidor(ica, viejo) {
   const sin = ica == null, i = sin ? 0 : Math.max(0, CAT_ICA.findIndex(c => ica <= c.max)), cat = CAT_ICA[i];
   const lo = i ? CAT_ICA[i - 1].max : 0, t = (i + (ica - lo) / (cat.max - lo)) / n;
   let sv = CAT_ICA.map((c, k) => { const a = pto(k / n + .008), b = pto((k + 1) / n - .008);
-    return `<path d="M${a[0]} ${a[1]}A${r} ${r} 0 0 1 ${b[0]} ${b[1]}" fill="none" stroke="${sin ? "var(--surface-3)" : c.c}" stroke-opacity="${sin ? 1 : .85}" stroke-width="14"/>`; }).join("");
+    return `<path d="M${a[0]} ${a[1]}A${r} ${r} 0 0 1 ${b[0]} ${b[1]}" fill="none" stroke="${sin ? "var(--surface-3)" : c.c}" stroke-opacity="${sin ? 1 : .9}" stroke-width="14"/>`; }).join("");
   const mk = pto(t);
-  if (!sin) sv += `<circle cx="${mk[0]}" cy="${mk[1]}" r="9" fill="var(--bg)" stroke="var(--text)" stroke-width="3"/>`;
-  sv += `<text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="44" font-weight="700" fill="var(--text)" font-family="Archivo, Arial Narrow, sans-serif" style="font-stretch:88%;font-variant-numeric:tabular-nums">${sin ? "—" : Math.round(ica)}</text>`;
-  sv += `<text x="${cx - r}" y="${cy + 18}" text-anchor="middle" font-size="11" fill="var(--text-3)" font-family="Geist Mono, monospace">0</text><text x="${cx + r}" y="${cy + 18}" text-anchor="middle" font-size="11" fill="var(--text-3)" font-family="Geist Mono, monospace">500</text>`;
-  const g = $("#gauge"); g.innerHTML = sv; g.classList.toggle("old", viejo);
-  g.setAttribute("aria-label", sin ? "Medidor ICA: sin datos" : `Medidor ICA: ${Math.round(ica)}, ${cat.n}`);
-  const chip = $("#chip"); chip.style.borderColor = sin ? "var(--bad)" : cat.c;
-  chip.innerHTML = sin ? svgNivel(2) + "<span>Sin datos: nodo apagado o desconectado</span>"
+  if (!sin) sv += `<circle cx="${mk[0]}" cy="${mk[1]}" r="9" fill="var(--surface)" stroke="var(--text)" stroke-width="3"/>`;
+  sv += `<text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="44" font-weight="600" fill="var(--text)" font-family="Inter, Segoe UI, Arial, sans-serif" style="font-variant-numeric:tabular-nums">${sin ? "—" : Math.round(ica)}</text>`;
+  sv += `<text x="${cx - r}" y="${cy + 18}" text-anchor="middle" font-size="11" fill="var(--text-3)" font-family="Inter, Segoe UI, Arial, sans-serif">0</text><text x="${cx + r}" y="${cy + 18}" text-anchor="middle" font-size="11" fill="var(--text-3)" font-family="Inter, Segoe UI, Arial, sans-serif">500</text>`;
+  elGauge.innerHTML = sv; elGauge.classList.toggle("old", viejo);
+  elChip.style.borderColor = sin ? "var(--bad)" : cat.c;
+  elChip.innerHTML = sin ? svgNivel(2) + "<span>Sin datos: nodo apagado o desconectado</span>"
     : svgNivel(nivelICA(ica)) + `<span>${ACCION[i]}${viejo ? " · dato viejo" : ""}</span>`;
-  $("#leyenda").innerHTML = CAT_ICA.map((c, k) => `<li><span class="sw" style="background:${c.c}"></span>${k ? CAT_ICA[k - 1].max + 1 : 0}–${c.max} ${c.n}</li>`).join("");
+  elLeyenda.innerHTML = CAT_ICA.map((c, k) => `<li><span class="sw" style="background:${c.c}"></span>${k ? CAT_ICA[k - 1].max + 1 : 0}–${c.max} ${c.n}</li>`).join("");
 }
 
-/* ============ 7. GRÁFICO 24 h (SVG) con franjas de umbral ============ */
-function franjas(k) {   // [desde, hasta, color] según los umbrales de cada variable
+/* ============ 7. GRÁFICO CORTO (ÚLTIMOS N MINUTOS) ============ */
+function franjas(k) {
   const G = "#4ADE80", A = "#FBBF24", R = "#F87171";
   if (k === "temp") return [[10,16,R],[16,18,A],[18,26,G],[26,30,A],[30,36,R]];
   if (k === "hum")  return [[20,30,R],[30,40,A],[40,60,G],[60,70,A],[70,80,R]];
-  return CAT_ICA.map((c, i) => [i ? CAT_ICA[i - 1].max : 0, c.max, c.c]);   // franjas = categorías ICA
+  return CAT_ICA.map((c, i) => [i ? CAT_ICA[i - 1].max : 0, c.max, c.c]);
 }
 function dibujar() {
-  if (document.documentElement.classList.contains("kiosco")) return;   // en pantalla completa no hay gráfico
   const V = VARS[varGrafico], W = 640, H = 260, L = 46, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
-  const t0 = Date.now() - 24 * 3600e3, cl = y => Math.min(V.y[1], Math.max(V.y[0], y));
-  const X = t => L + Math.min(1, Math.max(0, (t - t0) / (24 * 3600e3))) * iw, Y = y => T + (1 - (cl(y) - V.y[0]) / (V.y[1] - V.y[0])) * ih;
-  const f = "font-family=\"Geist Mono, monospace\" font-size=\"11\" fill=\"var(--text-3)\"";
+  const spanMs = CONFIG.VENTANA_MIN * 60e3;
+  const t0 = Date.now() - spanMs, cl = y => Math.min(V.y[1], Math.max(V.y[0], y));
+  const X = t => L + Math.min(1, Math.max(0, (t - t0) / spanMs)) * iw, Y = y => T + (1 - (cl(y) - V.y[0]) / (V.y[1] - V.y[0])) * ih;
+  const f = "font-family=\"Inter, Segoe UI, Arial, sans-serif\" font-size=\"11\" fill=\"var(--text-3)\"";
   let s = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">`;
-  for (const [a, b, c] of franjas(varGrafico)) s += `<rect x="${L}" y="${Y(b).toFixed(1)}" width="${iw}" height="${(Y(a) - Y(b)).toFixed(1)}" fill="${c}" fill-opacity=".08"/>`;
+  for (const [a, b, c] of franjas(varGrafico)) s += `<rect x="${L}" y="${Y(b).toFixed(1)}" width="${iw}" height="${(Y(a) - Y(b)).toFixed(1)}" fill="${c}" fill-opacity=".1"/>`;
   for (let i = 0; i <= 4; i++) { const y = V.y[0] + (V.y[1] - V.y[0]) * i / 4;
     s += `<line x1="${L}" x2="${W - R}" y1="${Y(y).toFixed(1)}" y2="${Y(y).toFixed(1)}" stroke="var(--border)"/><text x="${L - 8}" y="${(Y(y) + 4).toFixed(1)}" text-anchor="end" ${f}>${Math.round(y)}</text>`; }
-  for (let i = 0; i <= 4; i++) { const t = t0 + i * 6 * 3600e3;
-    s += `<text x="${X(t).toFixed(1)}" y="${H - 8}" text-anchor="${i ? (i === 4 ? "end" : "middle") : "start"}" ${f}>${i === 4 ? "ahora" : String(new Date(t).getHours()).padStart(2, "0") + " h"}</text>`; }
-  const pts = hist.filter(h => h[varGrafico] !== undefined);
-  if (!pts.length) s += `<text x="${L + iw / 2}" y="${T + ih / 2}" text-anchor="middle" font-size="14" fill="var(--text-2)" font-family="Geist, sans-serif">Sin datos todavía</text>`;
+  for (let i = 0; i <= 4; i++) {
+    const frac = i / 4;
+    const t = t0 + frac * spanMs;
+    const minAtras = Math.round((1 - frac) * CONFIG.VENTANA_MIN);
+    const etiqueta = i === 4 ? "ahora" : `-${minAtras}m`;
+    s += `<text x="${X(t).toFixed(1)}" y="${H - 8}" text-anchor="${i ? (i === 4 ? "end" : "middle") : "start"}" ${f}>${etiqueta}</text>`;
+  }
+  const pts = hist.filter(h => h[varGrafico] !== undefined && h.t >= t0);
+  if (!pts.length) s += `<text x="${L + iw / 2}" y="${T + ih / 2}" text-anchor="middle" font-size="14" fill="var(--text-2)" font-family="Inter, Segoe UI, Arial, sans-serif">Sin datos en los últimos ${CONFIG.VENTANA_MIN} min</text>`;
   else {
     const q = pts.map(h => [X(h.t), Y(h[varGrafico])]), d = q.map((a, i) => (i ? "L" : "M") + a[0].toFixed(1) + " " + a[1].toFixed(1)).join(" "), l = q[q.length - 1], yb = Y(V.y[0]).toFixed(1);
-    s += `<defs><linearGradient id="gh" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${V.col}" stop-opacity=".3"/><stop offset="1" stop-color="${V.col}" stop-opacity="0"/></linearGradient></defs>`;
+    s += `<defs><linearGradient id="gh" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${V.col}" stop-opacity=".28"/><stop offset="1" stop-color="${V.col}" stop-opacity="0"/></linearGradient></defs>`;
     s += `<path d="${d} L${l[0].toFixed(1)} ${yb} L${q[0][0].toFixed(1)} ${yb} Z" fill="url(#gh)"/><path d="${d}" fill="none" stroke="${V.col}" stroke-width="2.2" stroke-linejoin="round"/>`;
-    s += `<line x1="${l[0].toFixed(1)}" x2="${l[0].toFixed(1)}" y1="${T}" y2="${yb}" stroke="${V.col}" stroke-opacity=".35" stroke-dasharray="3 3"/><circle cx="${l[0].toFixed(1)}" cy="${l[1].toFixed(1)}" r="6" fill="var(--bg)" stroke="${V.col}" stroke-width="2.4"/>`;
+    s += `<line x1="${l[0].toFixed(1)}" x2="${l[0].toFixed(1)}" y1="${T}" y2="${yb}" stroke="${V.col}" stroke-opacity=".35" stroke-dasharray="3 3"/><circle cx="${l[0].toFixed(1)}" cy="${l[1].toFixed(1)}" r="6" fill="var(--surface)" stroke="${V.col}" stroke-width="2.4"/>`;
   }
-  $("#hist").innerHTML = s + "</svg>";
-  $("#hist").setAttribute("aria-label", `Historial de ${V.nom} de las últimas 24 horas, ${pts.length} puntos`);
-  $("#chartSub").textContent = `${V.nom} en ${V.u} · franjas de fondo según los umbrales`;
-  $("#chartLegend").innerHTML = `<span><i style="background:${V.col}"></i>${V.nom}</span>` + (varGrafico === "ica"
+  elHist.innerHTML = s + "</svg>";
+  elChartSub.textContent = `${V.nom} en ${V.u} · ventana de ${CONFIG.VENTANA_MIN} minutos`;
+  elChartLegend.innerHTML = `<span><i style="background:${V.col}"></i>${V.nom}</span>` + (varGrafico === "ica"
     ? `<span><i style="background:var(--text-3)"></i>Franjas: categorías del ICA (ver semáforo)</span>`
-    : `<span><i style="background:var(--ok);opacity:.6"></i>Normal</span><span><i style="background:var(--warn);opacity:.6"></i>Atención</span><span><i style="background:var(--bad);opacity:.6"></i>Alerta</span>`);
+    : `<span><i style="background:#4ADE80"></i>Normal</span><span><i style="background:#FBBF24"></i>Atención</span><span><i style="background:#F87171"></i>Alerta</span>`);
 }
 document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   varGrafico = b.dataset.v;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-pressed", x === b));
   dibujar();
 });
-addEventListener("resize", dibujar);
 
-/* ============ 7b. PANTALLA COMPLETA (F11): modo "kiosco" con lo más importante ============ */
-function revisarPantalla() {
-  // F11 no se puede interceptar: se detecta por el tamaño de la ventana o por el modo de visualización
-  const full = matchMedia("(display-mode: fullscreen)").matches || !!document.fullscreenElement ||
-    (innerHeight >= screen.height - 2 && innerWidth >= screen.width - 2);
-  document.documentElement.classList.toggle("kiosco", full);
+/* ============ 7b. TEMA CLARO / OSCURO ============ */
+function aplicarTema(t) {
+  document.documentElement.dataset.theme = t;
+  $("#icoTema").innerHTML = ic(t === "dark" ? "sun" : "moon");
+  try { localStorage.setItem("g1-tema", t); } catch (e) {}
 }
-addEventListener("resize", revisarPantalla);
-document.addEventListener("fullscreenchange", revisarPantalla);
-revisarPantalla();
+(function () {
+  let t = "light";
+  try { t = localStorage.getItem("g1-tema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); } catch (e) {}
+  aplicarTema(t);
+})();
+$("#btnTema").onclick = () => aplicarTema(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
 
-/* ============ 8. FUENTES DE DATOS (como proyecto.html): MQTT + servidor web ============ */
-function entrada(d, fuente) { $("#fuente").textContent = fuente; recibir(d); }   // solo datos reales: no hay modo demo
+/* ============ 8. FUENTES DE DATOS (SOLO INFO A · G1) — SIN CAMBIOS ============ */
+function entrada(d, fuente) {
+  // Aísla las fuentes: en modo demo solo pasa lo simulado; fuera de demo solo lo real.
+  if (fuente.startsWith("Demo") !== DEMO.on) return;
+  if (fuente !== ultFuente) { ultFuente = fuente; elFuente.textContent = fuente; }
+  recibir(d);
+}
 const parseNum = s => { const n = Number(String(s).replace(",", ".").replace(/[^0-9.\-]/g, "")); return isFinite(n) && /\d/.test(String(s)) ? n : NaN; };
-function aplanar(o, ruta, out) {   // convierte un JSON anidado en pares [ruta, número]
-  if (Array.isArray(o)) { if (o.length) aplanar(o[o.length - 1], ruta, out); return; }
-  if (o && typeof o === "object") { for (const k in o) aplanar(o[k], ruta + "." + k, out); return; }
+
+const ES_INFO_B_RE = /(^|[^a-z0-9])(info[\s_\-]?b|\/b\/|curso[\s_\-]?b|division[\s_\-]?b|6to[\s_\-]?b)([^a-z0-9]|$)/i;
+const ES_INFO_A_RE = /(info[\s_\-]?a|\/a\/|6to[\s_\-]?info[\s_\/\-]?a)/i;
+const G1_RE        = /(^|[^a-z0-9])(g|grupo)[\s_\-]?1(?![0-9])/i;
+
+function esDeInfoAG1(textoIdentificador) {
+  const s = String(textoIdentificador || "");
+  if (ES_INFO_B_RE.test(s)) return false;
+  return G1_RE.test(s) && (ES_INFO_A_RE.test(s) || !/\bb\b/i.test(s));
+}
+
+function aplanar(o, ruta, out) {
+  if (Array.isArray(o)) {
+    const validos = o.filter(item => item && typeof item === "object");
+    const exactoAG1 = validos.find(item => {
+      const kStr = Object.keys(item).join(" ") + " " + Object.values(item).join(" ");
+      return !ES_INFO_B_RE.test(kStr) && ES_INFO_A_RE.test(kStr) && G1_RE.test(kStr);
+    });
+    const soloG1 = validos.find(item => {
+      const kStr = Object.keys(item).join(" ") + " " + Object.values(item).join(" ");
+      return !ES_INFO_B_RE.test(kStr) && G1_RE.test(kStr);
+    });
+    const elegido = exactoAG1 || soloG1;
+    if (elegido) aplanar(elegido, ruta + ".INFO_A_G1", out);
+    return;
+  }
+  if (o && typeof o === "object") {
+    for (const k in o) {
+      if (ES_INFO_B_RE.test(k)) continue;
+      aplanar(o[k], ruta + "." + k, out);
+    }
+    return;
+  }
   if (typeof o === "number" || (typeof o === "string" && /^\s*-?\d+([.,]\d+)?\s*$/.test(o))) out.push([ruta, parseNum(o)]);
 }
-const G1_RE = /(^|[^a-z0-9])(g|grupo)[\s_\-]?1(?![0-9])/i;   // reconoce "G1" o "Grupo 1"
-function extraer(texto) {   // busca temp/hum/ica del Grupo 1 en JSON o en HTML
+
+function extraer(texto) {
   const res = {}, ends = [];
   try {
-    const flat = []; aplanar(JSON.parse(texto), "", flat);
-    const g1 = flat.filter(([k]) => G1_RE.test(k));
-    for (const [k, v] of (g1.length ? g1 : flat)) { const c = claseDe(k); if (c && !(c in res)) res[c] = v; }
+    const raw = JSON.parse(texto);
+    const flat = [];
+    aplanar(raw, "", flat);
+    const ag1 = flat.filter(([k]) => ES_INFO_A_RE.test(k) && G1_RE.test(k) && !ES_INFO_B_RE.test(k));
+    const g1  = flat.filter(([k]) => G1_RE.test(k) && !ES_INFO_B_RE.test(k));
+    const fuente = ag1.length ? ag1 : g1;
+    for (const [k, v] of fuente) {
+      const c = claseDe(k);
+      if (c && !(c in res)) res[c] = v;
+    }
     return { res, ends };
-  } catch (e) { /* no era JSON */ }
+  } catch (e) { /* HTML */ }
+
   const doc = new DOMParser().parseFromString(texto, "text/html");
-  doc.querySelectorAll("script").forEach(sc => {   // endpoints que usa el JS de la página
-    const re = /(?:fetch|\.get|\.post|\.getJSON|\.ajax|open)\(\s*(?:['"][A-Z]+['"]\s*,\s*)?['"`]([^'"`]+?)['"`]/g; let m;
-    while ((m = re.exec(sc.textContent || ""))) ends.push(m[1]); });
   doc.querySelectorAll("[id],[class]").forEach(el => {
-    const c = claseDe(el.id + " " + el.className); if (!c || c in res || el.children.length > 2) return;
-    const n = parseNum((el.textContent.match(/-?\d+(?:[.,]\d+)?/) || [""])[0]); if (!isNaN(n)) res[c] = n; });
-  if (Object.keys(res).length < 3) {   // último recurso: buscar en el texto visible
-    doc.querySelectorAll("script,style").forEach(n => n.remove());
-    let b = (doc.body ? doc.body.textContent : "").replace(/\s+/g, " ");
-    const gi = b.search(/grupo\s*[:#\-]?\s*1(?!\d)/i);
-    if (gi >= 0) { const r = b.slice(gi + 6), nx = r.search(/grupo\s*[:#\-]?\s*\d/i); b = b.slice(gi, gi + 6 + (nx >= 0 ? nx : r.length)); }
-    const N = "[^0-9\\-]{0,30}(-?\\d+(?:[.,]\\d+)?)";
-    const pats = { temp: new RegExp("temperatura" + N, "i"), hum: new RegExp("humedad" + N, "i"), ica: new RegExp("(?:[ií]ndice de calidad del aire|calidad del aire|ica|aire)" + N, "i") };
-    for (const k in pats) if (!(k in res)) { const m = b.match(pats[k]); if (m) res[k] = parseNum(m[1]); }
-  }
+    const meta = el.id + " " + el.className;
+    if (ES_INFO_B_RE.test(meta)) return;
+    const c = claseDe(meta);
+    if (!c || c in res || el.children.length > 2) return;
+    const n = parseNum((el.textContent.match(/-?\d+(?:[.,]\d+)?/) || [""])[0]);
+    if (!isNaN(n)) res[c] = n;
+  });
   return { res, ends };
 }
-// Lectura directa; si el navegador la bloquea (CORS o http en https), se prueban proxies públicos
-const PROXIES = [u => "https://corsproxy.io/?url=" + encodeURIComponent(u), u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
-  u => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u)];
-let proxyOk = -1;
-async function pedir(url) { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); }
-async function traer(url) {
-  if (proxyOk === -1) { try { return await pedir(url); } catch (e) { /* probar proxies */ } }
-  for (const i of [...new Set([proxyOk, 0, 1, 2])].filter(x => x >= 0)) { try { const t = await pedir(PROXIES[i](url)); proxyOk = i; return t; } catch (e) { /* siguiente */ } }
-  throw new Error("sin conexión");
+
+async function pedir(url) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), CONFIG.FETCH_TIMEOUT_MS);
+  try {
+    const r = await fetch(url, { cache: "no-store", signal: ctrl.signal });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return await r.text();
+  } finally {
+    clearTimeout(timer);
+  }
 }
-let candidatos = null, fijada = null, ultFirma = null;
+
+let fijada = null, mqttActivo = false;
 async function sondear() {
-  try {
-    let { res, ends } = extraer(await traer(fijada || CONFIG.DASH_URL));
-    if (!Object.keys(res).length && !fijada) {   // si la página no trae datos, probar los endpoints de su JS
-      candidatos = candidatos || [...new Set(ends)].map(e => { try { return new URL(e, CONFIG.DASH_URL).href; } catch { return null; } }).filter(Boolean);
-      for (const c of candidatos) { try { const r2 = extraer(await traer(c)); if (Object.keys(r2.res).length) { res = r2.res; fijada = c; break; } } catch (e) { /* siguiente */ } }
+  if (!DEMO.on && (!mqttActivo || !ultimoRx || (Date.now() - ultimoRx > 15000))) {
+    const urls = fijada ? [fijada] : [CONFIG.DASH_URL, ...CONFIG.API_CANDIDATOS];
+    for (const url of urls) {
+      try {
+        const txt = await pedir(url);
+        const { res } = extraer(txt);
+        const d = validarObj(res);
+        if (d) {
+          fijada = fijada || url;
+          d.nodo = "INFO A · G1";
+          entrada(d, "Web INFO A · G1 (" + new URL(fijada).pathname + ")");
+          break;
+        }
+      } catch (e) {}
     }
-    const d = validarObj(res);
-    if (!d) return;
-    // Un nodo apagado deja en la página del servidor su última medición congelada.
-    // Por eso un dato del servidor solo cuenta como "en vivo" si CAMBIA respecto del anterior;
-    // el primer valor leído se descarta (podría ser viejo) y 5 min sin cambios = desconectado.
-    const firma = [d.temp, d.hum, d.ica].join("|");
-    if (ultFirma !== null && firma !== ultFirma) entrada(d, "Servidor web");
-    ultFirma = firma;
-  } catch (e) { /* sin conexión: se reintenta en el próximo ciclo */ }
+  }
+  setTimeout(sondear, CONFIG.SONDEO_MS);
 }
+
 function conectar() {
-  $("#topico").textContent = CONFIG.TOPICO;
+  $("#topico").textContent = CONFIG.TOPICOS_INFO_A_G1[0];
   try {
-    const c = mqtt.connect(CONFIG.BROKER_URL, { reconnectPeriod: 5000, connectTimeout: 5000 });
-    c.on("connect", () => c.subscribe(CONFIG.TOPICO));
-    c.on("message", (topico, buf, pkt) => {
-      if (pkt && pkt.retain) return;   // mensaje retenido = última medición guardada, no es en vivo
-      const txt = buf.toString(); let d = validar(txt);
-      if (!d) { const k = claseDe(topico); if (k) d = validarObj({ [k]: txt }); }   // valor suelto: el tópico dice qué es
-      if (d) entrada(d, "MQTT");
+    const c = mqtt.connect(CONFIG.BROKER_URL, { reconnectPeriod: 4000, connectTimeout: 4000 });
+    c.on("connect", () => {
+      mqttActivo = true;
+      if (!ultimoRx && !DEMO.on) elFuente.textContent = "MQTT conectado (solo INFO A · G1)";
+      CONFIG.TOPICOS_INFO_A_G1.forEach(t => c.subscribe(t));
     });
-  } catch (e) { /* MQTT no disponible: queda el servidor web */ }
-  sondear(); setInterval(sondear, CONFIG.DASH_CADA_S * 1000);
+    c.on("close", () => { mqttActivo = false; });
+    c.on("message", (topico, buf) => {
+      const txt = buf.toString();
+      if (ES_INFO_B_RE.test(topico) || ES_INFO_B_RE.test(txt)) return;
+      if (!esDeInfoAG1(topico) && !esDeInfoAG1(txt)) return;
+
+      let d = validar(txt);
+      if (!d) {
+        const k = claseDe(topico);
+        if (k) d = validarObj({ [k]: txt });
+      }
+      if (d) {
+        d.nodo = "INFO A · G1";
+        entrada(d, "MQTT (" + topico + ")");
+      }
+    });
+  } catch (e) {}
+  sondear();
 }
 
-addEventListener("resize", dibujar); document.addEventListener("fullscreenchange", dibujar);   // al salir de F11 se redibuja el gráfico
-
-function sinDatos() {   // mientras no llegue ningún dato real, no se muestra ningún valor
-  for (const k in VARS) { const el = $("#" + VARS[k].id), st = el.querySelector(".st"); el.querySelector(".v").textContent = "—";
-    st.className = "st pill mute"; st.innerHTML = ic("clock", "ic-sm") + "<span>Sin datos</span>"; el.querySelector(".dif").textContent = "Esperando la primera lectura"; }
+function sinDatos() {
+  for (const k in VARS) {
+    const el = $("#" + VARS[k].id), st = el.querySelector(".st");
+    el.querySelector(".v").textContent = "—";
+    st.className = "st pill mute";
+    st.innerHTML = ic("clock", "ic-sm") + "<span>Sin datos</span>";
+    el.querySelector(".dif").textContent = "Esperando INFO A · G1";
+    el.querySelector(".spark").innerHTML = "";
+    el.classList.remove("stale");
+  }
   medidor(null, false); dibujar();
 }
+
+/* ============ 9. MODO DEMO (datos simulados) ============ */
+const DEMO = { on: false, timer: null, s: null, evento: 0 };
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const DEMO_TICK_MS = 2000;
+
+function demoPaso(t) {
+  const s = DEMO.s;
+  s.temp = clamp(s.temp + (Math.random() - .5) * .3 + (23.5 - s.temp) * .03, 10, 36);
+  s.hum  = clamp(s.hum + (Math.random() - .5) * 1 + (52 - s.hum) * .03, 20, 80);
+  if (DEMO.evento > 0) {            // episodio de contaminación: sube el ICA
+    DEMO.evento--;
+    s.ica += Math.random() * 6 + 4; s.temp += .08; s.hum += .2;
+  } else {
+    s.ica += (Math.random() - .5) * 5 + (42 - s.ica) * .06;
+    if (Math.random() < .015) DEMO.evento = 14 + Math.floor(Math.random() * 10);
+  }
+  s.ica = clamp(s.ica, 8, 280);
+  return { temp: +s.temp.toFixed(1), hum: Math.round(s.hum), ica: Math.round(s.ica),
+           rssi: -56 - Math.round(Math.random() * 14), t, nodo: "INFO A · G1" };
+}
+function demoPrecargar() {          // rellena el historial para que el gráfico no arranque vacío
+  const ahora = Date.now(), paso = 5000, n = Math.floor(CONFIG.VENTANA_MIN * 60e3 / paso);
+  for (let i = n; i > 0; i--) {
+    const d = demoPaso(ahora - i * paso);
+    hist.push({ t: d.t, temp: d.temp, hum: d.hum, ica: d.ica });
+  }
+  DEMO.evento = 0;
+  for (const k in VARS) ultNivel[k] = VARS[k].nivel(hist[hist.length - 1][k]);
+}
+function demoTick() { entrada(demoPaso(Date.now()), "Demo · datos simulados"); }
+
+function limpiarEstado() {
+  hist.length = 0; alertas.length = 0; llegadas = []; ultimoRx = 0; ultFuente = "";
+  for (const k in ultNivel) delete ultNivel[k];
+  elFuente.textContent = "—"; elRssi.textContent = "—"; elUltimo.textContent = "—"; elNodo.textContent = "INFO A · G1";
+  ultEstadoOff = null;
+}
+function activarDemo(on) {
+  if (on === DEMO.on) return;
+  clearInterval(DEMO.timer); DEMO.timer = null;
+  limpiarEstado();
+  DEMO.on = on;
+  $("#btnDemo").setAttribute("aria-pressed", String(on));
+  $("#demoBar").hidden = !on;
+  if (on) {
+    DEMO.s = { temp: 23.2, hum: 51, ica: 38 };
+    demoPrecargar();
+    demoTick();
+    DEMO.timer = setInterval(demoTick, DEMO_TICK_MS);
+  } else {
+    sinDatos(); pintarAlertas();
+  }
+  pintarEstado();
+}
+$("#btnDemo").onclick = () => activarDemo(!DEMO.on);
 
 sinDatos(); pintarAlertas(); pintarEstado();
 setInterval(pintarEstado, 1000);
