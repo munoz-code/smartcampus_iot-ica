@@ -37,7 +37,7 @@ window.PROYECTO = {
     { nombre: "Leguizamón, Thomas", rol: "desarrollo", cargo: "Encargado", foto: "assets/img/integrantes/thomas-leguizamon.jpg", github: "" },
     { nombre: "Veneziale, Felipe", rol: "desarrollo", cargo: "Colaborador", foto: "assets/img/integrantes/felipe-veneziale.jpg", github: "" },
     { nombre: "Segatore, Sol", rol: "aplicaciones", cargo: "Encargada", foto: "assets/img/integrantes/sol-segatore.jpg", github: "" },
-    { nombre: "Suarez, Luca", rol: "aplicaciones", cargo: "Colaborador", foto: "", github: "" }
+    { nombre: "Suarez, Luca", rol: "aplicaciones", cargo: "Colaborador", foto: "assets/img/integrantes/luca-suarez.jpg", github: "" }
   ],
 
   // --- Docentes (el auditor recibe los reportes del Project Manager) ---
@@ -67,32 +67,35 @@ window.PROYECTO = {
     { version: "0.12", fecha: "23/10/2026", responsable: "Todo el equipo", detalle: "El NodeMCU llegó con falla de fábrica y la escuela lo reemplazó. Calibración del MQ-135 en aire limpio y código final con los pines nuevos (tareas 23 a 27)." },
     { version: "0.13", fecha: "27/10/2026", responsable: "Sol Segatore", detalle: "Creación de la página web de presentación del proyecto (tarea 28)." },
     { version: "0.14", fecha: "29/10/2026", responsable: "Todo el equipo", detalle: "Fallas de energía en el nodo. Al medir el módulo step-down se produjeron cortocircuitos y la institución lo reemplazó (tarea 29)." },
-    { version: "0.15", fecha: "05/11/2026", responsable: "Sol Segatore, Luca Suarez, Mariano Muñoz", detalle: "Cambio de alimentación: el módulo step-down se reemplaza por el regulador 7805, entregado por el docente Gustavo Werner. Al soldarlo con los terminales invertidos, el ESP32 y el LCD recibieron 12 V y se quemaron (tareas 30 y 31)." },
-    { version: "0.16", fecha: "06/11/2026", responsable: "Mariano Muñoz, Sol Segatore", detalle: "Evaluación del ESP32 dañado y decisión de comprar otro. Actualización de la carta Gantt hasta el 29/10 (tareas 32 y 33)." },
-    { version: "0.17", fecha: "12/11/2026", responsable: "Sol Segatore, Mariano Muñoz", detalle: "La documentación se armó a partir de los documentos del equipo (carta Gantt, lista de precios, bitácora y códigos) siguiendo la orientación de la docente Lourdes Pedaci (tarea 34)." }
+    { version: "0.15", fecha: "05/11/2026", responsable: "Sol Segatore, Luca Suarez, Mariano Muñoz", detalle: "Cambio de alimentación: el módulo step-down se reemplaza por el regulador 7805, entregado por el docente Gustavo Werner. Al soldarlo con los terminales invertidos, el ESP32 y el LCD recibieron 12 V y se quemaron. Se soldó en la orientación correcta y se le colocó un disipador (tareas 30 y 31)." },
+    { version: "0.16", fecha: "06/11/2026", responsable: "Mariano Muñoz, Sol Segatore", detalle: "Evaluación del ESP32 dañado: tras una mañana de pruebas se compró otro, que se reemplazó el mismo día. Actualización de la carta Gantt (tareas 32 y 33)." },
+    { version: "0.17", fecha: "12/11/2026", responsable: "Sol Segatore, Mariano Muñoz", detalle: "La docente Lourdes Pedaci envió una orientación para armar la carpeta del proyecto y se avanzó con la página web con los datos al día (tarea 34)." },
+    { version: "0.18", fecha: "17/11/2026", responsable: "Mariano Muñoz, Felipe Veneziale, Luca Suarez", detalle: "Montaje final: se fijaron el display, el MQ-135 y el DHT22 a la caja estanca con sellador de silicona, la placa con separadores y la batería con un riel DIN en forma de abrazadera. Se reforzaron con termocontraíble las soldaduras que se soltaron (tarea 35)." },
+    { version: "0.19", fecha: "17/11/2026", responsable: "Mariano Muñoz, Sol Segatore, Luca Suarez", detalle: "Se creó el dashboard propio del equipo, pedido por el docente Marcelo De Donato como actividad de su materia y para la exposición, y se actualizó la carpeta del proyecto (tareas 36 y 37)." },
+    { version: "0.20", fecha: "19/11/2026", responsable: "Todo el equipo", detalle: "Exposición del proyecto a familias, docentes y alumnos en la Semana de la Escuela Técnica (tarea 38)." }
   ],
 
 
   // --- Presupuesto / BOM: precios en pesos argentinos (completar) ---
   bom: [
     { item: "Display LCD 16x2", cant: 1, unit: 9034 },
-    { item: "Sensor DHT22 (temperatura y humedad)", cant: 1, unit: 13272 },
+    { item: "Sensor DHT22", cant: 1, unit: 13272 },
     { item: "Cable USB tipo C (no comprado)", cant: 1, unit: 0 },
-    { item: "Placa de desarrollo ESP32 C3 (dañada, reemplazada)", cant: 1, unit: 7360 },
-    { item: "Sensor de calidad de aire MQ-135", cant: 1, unit: 4674 },
-    { item: "Cables de protoboard macho y hembra", cant: 1, unit: 3000 },
+    { item: "Placa ESP32 C3 (dañada)", cant: 1, unit: 7360 },
+    { item: "Sensor MQ-135", cant: 1, unit: 4674 },
+    { item: "Cables de protoboard", cant: 1, unit: 3000 },
     { item: "Placa experimental 50x70 mm", cant: 1, unit: 4759 },
     { item: "Pack de 5 tiras de 40 pines hembra", cant: 1, unit: 8500 },
-    { item: "Bornera hembra de 2 vías", cant: 1, unit: 3836 },
-    { item: "Fuente multi voltaje step-down (reemplazada por el 7805)", cant: 1, unit: 7447 },
-    { item: "Placa de desarrollo NodeMCU ESP32 (primera, con falla de fábrica)", cant: 1, unit: 9708 },
-    { item: "Placa de desarrollo NodeMCU ESP32 (segunda, proporcionada por la escuela)", cant: 1, unit: 0 },
-    { item: "Placa de desarrollo NodeMCU ESP32 (tercera, comprada por sobretensión)", cant: 1, unit: 12990 },
-    { item: "Display LCD 16x2 (reemplazo, brindado por el docente Gustavo Werner)", cant: 1, unit: 0 },
-    { item: "Regulador de tensión 7805 (LM340T5), entregado por el docente Gustavo Werner", cant: 1, unit: 0 },
-    { item: "Interruptor de encendido (provisto por la institución)", cant: 1, unit: 0 },
-    { item: "Resistencias de 10 kΩ y 18 kΩ (divisor de tensión), provistas por la institución", cant: 2, unit: 0 },
-    { item: "Caja estanca (gabinete), provista por la institución", cant: 1, unit: 0 }
+    { item: "Bornera hembra 2 vías", cant: 1, unit: 3836 },
+    { item: "Módulo step-down (reemplazado por el 7805)", cant: 1, unit: 7447 },
+    { item: "NodeMCU ESP32 (1.ª, con falla de fábrica)", cant: 1, unit: 9708 },
+    { item: "NodeMCU ESP32 (2.ª, provista por la escuela)", cant: 1, unit: 0 },
+    { item: "NodeMCU ESP32 (3.ª, reposición)", cant: 1, unit: 12990 },
+    { item: "Display LCD 16x2 (reemplazo, provisto)", cant: 1, unit: 0 },
+    { item: "Regulador 7805 (provisto)", cant: 1, unit: 0 },
+    { item: "Interruptor (provisto)", cant: 1, unit: 0 },
+    { item: "Resistencias 10 kΩ y 18 kΩ (provistas)", cant: 2, unit: 0 },
+    { item: "Caja estanca (provista)", cant: 1, unit: 0 }
   ],
 
   // --- Bitácora de pruebas: una fila por prueba ---
@@ -109,7 +112,8 @@ window.PROYECTO = {
     { fecha: "23/10/2026", prueba: "Código final", esperado: "Calibración y pines del nuevo ESP", resultado: "Código final con el MQ-135 calibrado y el esquema de pines actualizado", estado: "ok" },
     { fecha: "29/10/2026", prueba: "Medición del módulo step-down", esperado: "Encontrar la causa de las fallas de energía", resultado: "El nodo se apagaba y encendía solo y no se halló un falso contacto. Al medir el módulo se produjeron cortocircuitos y la institución lo reemplazó", estado: "falla" },
     { fecha: "03/11/2026", prueba: "Evaluación del regulador de tensión", esperado: "Alimentación estable de 5 V", resultado: "Se decide usar el regulador 7805 (entregado por el docente Gustavo Werner) y se diagrama su conexión", estado: "ok" },
-    { fecha: "05/11/2026", prueba: "Conexión del regulador 7805 al nodo", esperado: "Nodo alimentado de forma estable", resultado: "El 7805 se soldó con los terminales invertidos: el ESP32 y el LCD recibieron 12 V y se quemaron. El docente Gustavo Werner entregó otro LCD", estado: "falla" },
-    { fecha: "06/11/2026", prueba: "Evaluación del ESP32 dañado", esperado: "Recuperar el ESP32 para entregar el nodo a tiempo", resultado: "Tras una mañana de pruebas en los pines se decidió comprar otro, para no comprometer las funciones base del nodo", estado: "falla" }
+    { fecha: "05/11/2026", prueba: "Conexión del regulador 7805 al nodo", esperado: "Nodo alimentado de forma estable", resultado: "El 7805 se soldó con los terminales invertidos: el ESP32 y el LCD recibieron 12 V y se quemaron. Se soldó en la orientación correcta con un disipador y el docente Gustavo Werner entregó otro LCD", estado: "falla" },
+    { fecha: "06/11/2026", prueba: "Evaluación del ESP32 dañado", esperado: "Recuperar el ESP32 para entregar el nodo a tiempo", resultado: "Tras una mañana de pruebas se decidió comprar otro, para no comprometer las funciones base del nodo. Se compró y se reemplazó el mismo día", estado: "falla" }
+    ,{ fecha: "17/11/2026", prueba: "Nodo montado en la caja estanca", esperado: "Nodo operativo con los componentes fijados", resultado: "El nodo quedó operativo al 100 % con los componentes fijados en la caja", estado: "ok" }
   ]
 };
