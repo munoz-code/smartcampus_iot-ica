@@ -303,6 +303,14 @@
     background: var(--bg); color: var(--text); font: 13.5px var(--mono);
   }
   .viewer-url .btn { border-radius: 0 8px 8px 0; border-left: 0; }
+  .viewer-readonly { align-items: center; }
+  .viewer-fixed {
+    display: flex; align-items: center; width: 100%; min-height: 36px; padding: 0 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface-2); color: var(--text-2);
+    font: 13px var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: none;
+  }
+
   .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
   .seg button { min-height: 34px; min-width: 36px; padding: 0 10px; border: 0; background: var(--surface); color: var(--text-2); cursor: pointer; display: grid; place-items: center; }
   .seg button + button { border-left: 1px solid var(--border); }
