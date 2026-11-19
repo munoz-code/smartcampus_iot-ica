@@ -154,18 +154,110 @@
     const partes = String(n).replace(",", " ").split(/\s+/).filter(Boolean);
     return partes.length ? (partes[0][0] + (partes[1] ? partes[1][0] : "")).toUpperCase() : "?";
   };
+  const normTxt = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const ganttList = Array.isArray(P.ganttTareas) ? P.ganttTareas : [];
+
+  function tareasDeIntegrante(nombre) {
+    const parts = String(nombre).split(",").map((x) => normTxt(x.trim())).filter(Boolean);
+    const kws = [...parts, ...parts.flatMap((x) => x.split(/\s+/))].filter((w) => w.length >= 3);
+    const directas = [];
+    const equipo = [];
+    ganttList.forEach((t) => {
+      const asg = normTxt(t.asignado);
+      if (!asg) return;
+      if (kws.some((k) => asg.includes(k))) {
+        directas.push(t);
+      } else if (asg.includes("todo el equipo")) {
+        equipo.push(t);
+      }
+    });
+    return { directas, equipo };
+  }
+
+  const modal = $("#memberModal");
+  const modalPhoto = $("#memberModalPhoto");
+  const modalName = $("#memberModalName");
+  const modalTags = $("#memberModalTags");
+  const modalCargo = $("#memberModalCargo");
+  const directListEl = $("#memberDirectTasks");
+  const teamListEl = $("#memberTeamTasks");
+  const directCountEl = $("#memberDirectCount");
+  const teamCountEl = $("#memberTeamCount");
+
+  function openMemberModal(nombre, ms, rs, fotoUrl, cargosHtml) {
+    if (!modal) return;
+    modalName.textContent = nombre;
+    modalTags.innerHTML = rs.map((r) => `<span class="tag ${r.clase}">${esc(r.titulo)}</span>`).join(" ");
+    modalCargo.innerHTML = cargosHtml || "";
+    modalPhoto.innerHTML = fotoUrl
+      ? `<img src="${esc(fotoUrl)}" alt="${esc(nombre)}">`
+      : `<span>${esc(iniciales(nombre))}</span>`;
+
+    const { directas, equipo } = tareasDeIntegrante(nombre);
+    directCountEl.textContent = String(directas.length);
+    teamCountEl.textContent = String(equipo.length);
+
+    directListEl.innerHTML = directas.length
+      ? directas.map((t) => `<li><span class="t-meta">Tarea #${esc(t.num)}${t.fecha ? " · " + esc(t.fecha) : ""}${t.asignado ? " · " + esc(t.asignado) : ""}</span>${esc(t.detalle)}</li>`).join("")
+      : `<li><span class="t-meta">Sin tareas individuales adicionales</span>Participa en las tareas generales del equipo.</li>`;
+
+    teamListEl.innerHTML = equipo.length
+      ? equipo.map((t) => `<li><span class="t-meta">Tarea #${esc(t.num)}${t.fecha ? " · " + esc(t.fecha) : ""}</span>${esc(t.detalle)}</li>`).join("")
+      : `<li>Sin tareas generales registradas.</li>`;
+
+    modal.hidden = false;
+    $("#memberModalClose")?.focus();
+  }
+
+  function closeMemberModal() {
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+  }
+
+  $("#memberModalClose")?.addEventListener("click", closeMemberModal);
+  $("#memberModalBackdrop")?.addEventListener("click", closeMemberModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && !modal.hidden) {
+      e.stopPropagation();
+      closeMemberModal();
+    }
+  });
+
   const grupos = new Map();
   (P.integrantes || []).forEach((m) => { if (!grupos.has(m.nombre)) grupos.set(m.nombre, []); grupos.get(m.nombre).push(m); });
-  $("#listaIntegrantes").innerHTML = [...grupos.values()].map((ms) => {
+  const integrantesData = [...grupos.values()];
+  $("#listaIntegrantes").innerHTML = integrantesData.map((ms, idx) => {
     const m = ms[0], rs = ms.map((x) => ROLES[x.rol] || ROLES.pm);
     const foto = ms.find((x) => x.foto);
     const av = foto ? `<img src="${esc(foto.foto)}" alt="" loading="lazy">` : esc(iniciales(m.nombre));
     const gh = ms.find((x) => x.github);
     const ghp = gh ? `<p><a href="https://github.com/${esc(gh.github)}" target="_blank" rel="noopener">@${esc(gh.github)}</a></p>` : "";
     const tags = rs.map((r) => `<span class="tag ${r.clase}">${esc(r.titulo)}</span>`).join(" ");
-    const cargos = ms.length === 1 ? esc(m.cargo || "") : ms.filter((x) => x.cargo).map((x, k) => esc((ROLES[x.rol] || ROLES.pm).titulo + ": " + x.cargo)).join(" · ");
-    return `<div class="card member ${rs[0].clase}"><div class="avatar" aria-hidden="true">${av}</div><div><h3>${esc(m.nombre)}</h3>${tags}<p>${cargos}</p>${ghp}</div></div>`;
+    const cargos = ms.length === 1 ? esc(m.cargo || "") : ms.filter((x) => x.cargo).map((x) => esc((ROLES[x.rol] || ROLES.pm).titulo + ": " + x.cargo)).join(" · ");
+    return `<div class="card member ${rs[0].clase}" data-member-idx="${idx}" role="button" tabindex="0" aria-label="Ver foto ampliada y tareas de ${esc(m.nombre)}"><div class="avatar" aria-hidden="true">${av}</div><div><h3>${esc(m.nombre)}</h3>${tags}<p>${cargos}</p>${ghp}<span class="member-hint">Ver foto y tareas →</span></div></div>`;
   }).join("");
+
+  $("#listaIntegrantes").addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    const card = e.target.closest("[data-member-idx]");
+    if (!card) return;
+    const ms = integrantesData[Number(card.dataset.memberIdx)];
+    if (!ms) return;
+    const m = ms[0], rs = ms.map((x) => ROLES[x.rol] || ROLES.pm);
+    const foto = ms.find((x) => x.foto);
+    const cargos = ms.length === 1 ? esc(m.cargo || "") : ms.filter((x) => x.cargo).map((x) => esc((ROLES[x.rol] || ROLES.pm).titulo + ": " + x.cargo)).join(" · ");
+    openMemberModal(m.nombre, ms, rs, foto ? foto.foto : "", cargos);
+  });
+
+  $("#listaIntegrantes").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const card = e.target.closest("[data-member-idx]");
+      if (!card) return;
+      e.preventDefault();
+      card.click();
+    }
+  });
+
   $("#listaRoles").innerHTML = Object.values(ROLES).map((r) =>
     `<div class="card area-card ${r.clase}"><span class="tag ${r.clase}">${esc(r.titulo)}</span><h3>${esc(r.taller)}</h3><ul>${r.tareas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>`).join("");
 
