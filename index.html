@@ -109,7 +109,7 @@
 <h2>Visión general</h2><p>El nodo lee los sensores, muestra los datos en el LCD y los publica por MQTT. El dashboard los recibe y los grafica. El LCD indica además si el WiFi y el broker están conectados.</p></section>
 <section class="page" id="problema" data-group="1 · Presentación" data-title="Problema a resolver" data-num="3"><p class="eyebrow">Primera sección</p><h1>3. Problema a resolver</h1><h2>Sector donde se instala</h2><p>El nodo se instala en el Aula Taller, un espacio cerrado donde el grupo pasa muchas horas y donde importa cuidar el ambiente.</p><h2>Qué se observaba antes</h2><p>No había forma de medir el ambiente, así que se decidía por sensación. No se sabía qué tan mal se ventilaba el aula ni cuándo la temperatura o la humedad salían de un rango razonable.</p><h2>Qué decisión puede tomar la escuela</h2><p>Con la pantalla del nodo y los gráficos del dashboard, la escuela puede abrir las ventanas cuando el aire está cargado, o regular la temperatura y la humedad para que el espacio sea más cómodo.</p></section>
 <section class="page" id="alcances" data-group="1 · Presentación" data-title="Alcances" data-num="4"><p class="eyebrow">Primera sección</p><h1>4. Alcances</h1><div class="grid-2"><div class="card"><h3 style="margin-top:0">Incluye</h3><ul class="checklist"><li>Nodo IoT con ESP32 y dos sensores (DHT22 y MQ-135)</li><li>Display LCD 16x2 por I2C con desplazamiento y estado de red (W+/M+)</li><li>Firmware con reconexión automática a WiFi y MQTT</li><li>Publicación por MQTT en tópicos propios del grupo</li><li>Dashboard propio del equipo con semáforo, gráfico de 24 horas, alertas y modo pantalla completa para un monitor del aula</li><li>Calibración propia del MQ-135 en aire limpio, con una página local servida por el propio ESP32</li><li>Alimentación con batería de 12 V, regulador 7805 con disipador e interruptor de encendido</li><li>Placa soldada, componentes fijados en una caja estanca y documentación</li></ul></div><div class="card"><h3 style="margin-top:0">Inclusiones a futuro</h3><ul><li>Conversión del MQ-135 a ppm con una curva por gas</li><li>Actuadores, por ejemplo ventilación automática según el ICA</li><li>Actualización de firmware por OTA</li></ul></div></div></section>
-<section class="page" id="equipo" data-group="1 · Presentación" data-title="Equipo e integrantes" data-num="5"><p class="eyebrow">Primera sección</p><h1>5. Equipo e integrantes</h1><p class="lead"><span data-bind="equipo"></span> · <span data-bind="curso"></span> · <span data-bind="institucion"></span></p><h2>Integrantes</h2><div class="grid grid-integrantes" id="listaIntegrantes"></div><h2>Roles dentro del equipo</h2><div class="grid-2" id="listaRoles"></div><h2>Organización y reportes</h2><figure class="diagram fit">
+<section class="page" id="equipo" data-group="1 · Presentación" data-title="Equipo e integrantes" data-num="5"><p class="eyebrow">Primera sección</p><h1>5. Equipo e integrantes</h1><p class="lead"><span data-bind="equipo"></span> · <span data-bind="curso"></span> · <span data-bind="institucion"></span></p><h2>Integrantes</h2><div class="grid grid-integrantes" id="listaIntegrantes"></div><h2>Roles dentro del equipo</h2><div class="grid-2 grid-roles" id="listaRoles"></div><h2>Organización y reportes</h2><figure class="diagram fit">
     <svg viewBox="0 0 640 230" role="img" aria-labelledby="orgT">
       <title id="orgT">Organigrama: el Project Manager reporta al auditor y coordina a Desarrollo, Aplicaciones e Infraestructura</title>
       <rect class="d-box" x="230" y="10" width="180" height="44" rx="8"/><text class="d-title" x="320" y="30" text-anchor="middle">Auditor de proyectos</text><text class="d-small" x="320" y="46" text-anchor="middle">docente · Product Owner</text>
@@ -138,6 +138,32 @@
 <section class="page" id="resultados" data-group="4 · Seguimiento" data-title="Resultados y mejoras futuras" data-num="16"><p class="eyebrow">Seguimiento</p><h1>16. Resultados y mejoras futuras</h1><h2>Resultados</h2><ul><li>El nodo lee temperatura, humedad y calidad de aire, y los muestra en el LCD.</li><li>Publica los datos por MQTT en los tópicos <code>6to_info/A/G1/…</code> y se reconecta solo si se cae la red.</li><li>La alimentación pasó por tres etapas: módulo step-down, un cambio por incidente y finalmente el regulador 7805 con interruptor de encendido.</li><li>El MQ-135 se calibró en aire limpio (RAW cercano a 700) y con vapores de alcohol llegó a unos 2900, por lo que se usa 700 como 0 y 2700 como 500 del índice ICA.</li><li>Las tareas de la carta Gantt realizadas hasta el 19/11 figuran al 100 %. El reporte al dashboard se probó con éxito el 23/10, el nodo quedó fijado en la caja estanca y operativo, y se presentó en la Semana de la Escuela Técnica.</li></ul><h2>Mejoras futuras</h2><ul><li>Conversión del MQ-135 a ppm con una curva por gas y una calibración con concentración conocida</li><li>Actuadores, por ejemplo ventilación automática según el ICA</li><li>Actualización de firmware por OTA</li><li>Asegurar el broker (contraseñas fuera del código, ACL y TLS)</li></ul></section>
 <nav class="pager page" id="pager" aria-label="Apartado anterior y siguiente"></nav>
   </main>
+</div>
+
+
+<div class="member-modal" id="memberModal" role="dialog" aria-modal="true" aria-labelledby="memberModalName" hidden>
+  <div class="member-modal-backdrop" id="memberModalBackdrop"></div>
+  <div class="member-modal-card" role="document">
+    <button type="button" class="member-modal-close" id="memberModalClose" aria-label="Cerrar detalle del integrante">✕</button>
+    <div class="member-modal-head">
+      <div class="member-modal-photo" id="memberModalPhoto"></div>
+      <div class="member-modal-meta">
+        <h2 id="memberModalName"></h2>
+        <div class="member-modal-tags" id="memberModalTags"></div>
+        <p class="member-modal-cargo" id="memberModalCargo"></p>
+      </div>
+    </div>
+    <div class="member-modal-body">
+      <div class="member-modal-section">
+        <h3>Tareas asignadas en la carta Gantt <span class="count-pill" id="memberDirectCount">0</span></h3>
+        <ul class="member-task-list" id="memberDirectTasks"></ul>
+      </div>
+      <div class="member-modal-section">
+        <h3>Tareas en conjunto con todo el equipo <span class="count-pill" id="memberTeamCount">0</span></h3>
+        <ul class="member-task-list compact" id="memberTeamTasks"></ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer class="site-footer">
