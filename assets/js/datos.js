@@ -31,7 +31,7 @@ window.PROYECTO = {
   // rol: "pm" | "desarrollo" | "aplicaciones" | "infraestructura"
   // foto: ruta a una imagen (ej. "assets/img/integrantes/ana.jpg") o "" para iniciales
   integrantes: [
-    { nombre: "Muñoz, Mariano", rol: "pm", cargo: "", foto: "", github: "" },
+    { nombre: "Muñoz, Mariano", rol: "pm", cargo: "", foto: "assets/img/integrantes/mariano-munoz.jpg", github: "" },
     { nombre: "Muñoz, Mariano", rol: "infraestructura", cargo: "Encargado", foto: "", github: "" },
     { nombre: "Dominici, Luciano", rol: "infraestructura", cargo: "Colaborador", foto: "assets/img/integrantes/luciano-dominici.jpg", github: "" },
     { nombre: "Leguizamón, Thomas", rol: "desarrollo", cargo: "Encargado", foto: "assets/img/integrantes/thomas-leguizamon.jpg", github: "" },
