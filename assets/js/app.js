@@ -192,27 +192,34 @@
   }
 
   /* ---------------------------------------------------------------- visor del proyecto */
-  const frame = $("#viewerFrame"), empty = $("#viewerEmpty"), input = $("#viewerInput"), open = $("#viewerOpen");
-  const validUrl = (u) => { try { const x = new URL(u, location.href); return /^(https?|file):$/.test(x.protocol) ? x.href : ""; } catch (e) { return ""; } };
-  function load(url) {
-    const u = validUrl(url);
-    if (!u) {
-      frame.hidden = true; frame.removeAttribute("src"); empty.hidden = false;
-      open.setAttribute("aria-disabled", "true"); open.removeAttribute("href"); open.style.opacity = ".5";
-      return;
-    }
-    input.value = u; frame.src = u; frame.hidden = false; empty.hidden = true;
-    open.href = u; open.removeAttribute("aria-disabled"); open.style.opacity = "";
+  const frame = $("#viewerFrame"), empty = $("#viewerEmpty"), open = $("#viewerOpen");
+  const validUrl = (u) => {
+    try {
+      const x = new URL(u, location.href);
+      return /^(https?|file):$/.test(x.protocol) ? x.href : "";
+    } catch (e) { return ""; }
+  };
+  const fixedDashboardUrl = validUrl(P.previewUrl || "assets/dashboard_equipo.html");
+
+  if (fixedDashboardUrl) {
+    frame.src = fixedDashboardUrl;
+    frame.hidden = false;
+    if (empty) empty.hidden = true;
+    open.href = fixedDashboardUrl;
+    open.removeAttribute("aria-disabled");
+    open.style.opacity = "";
+  } else {
+    frame.hidden = true;
+    frame.removeAttribute("src");
+    if (empty) empty.hidden = false;
+    open.setAttribute("aria-disabled", "true");
+    open.removeAttribute("href");
+    open.style.opacity = ".5";
   }
-  const oficial = validUrl(P.previewUrl || "");
-  load(oficial || store.get("sc-preview-test") || "");
-  $("#viewerForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const u = validUrl(input.value.trim());
-    if (!oficial) store.set("sc-preview-test", u || null);
-    load(u);
+
+  $("#viewerReload").addEventListener("click", () => {
+    if (fixedDashboardUrl) frame.src = fixedDashboardUrl;
   });
-  $("#viewerReload").addEventListener("click", () => { if (frame.src) frame.src = frame.src; });
   $$(".seg button").forEach((b) => b.addEventListener("click", () => {
     $$(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     frame.style.width = b.dataset.w;
@@ -220,9 +227,9 @@
   }));
 
   const link = (u, txt) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(txt || u)}</a>`;
-  $("#accesoPreview").innerHTML = oficial ? link(oficial) : 'Sin publicar todavía.';
+  $("#accesoPreview").innerHTML = fixedDashboardUrl ? link(fixedDashboardUrl) : 'Sin publicar todavía.';
   $("#accesoRepo").innerHTML = validUrl(P.repoUrl || "") ? link(P.repoUrl) : 'Sin cargar.';
-  $("#estadoPublicacion").innerHTML = oficial ? '<span class="status on">Publicado</span>' : '<span class="status off">Sin publicar</span>';
+  $("#estadoPublicacion").innerHTML = fixedDashboardUrl ? '<span class="status on">Publicado</span>' : '<span class="status off">Sin publicar</span>';
 
   /* ---------------------------------------------------------------- motion graphics */
   const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
