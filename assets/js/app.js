@@ -30,7 +30,7 @@
   /* ---------------------------------------------------------------- bindings */
   const nodo = { nombre: "Calidad de aire (ICA), temperatura y humedad" };
   // "Apellido, Nombre" -> "Apellido"
-  const apellidos = [...new Set((P.integrantes || []).map((m) => String(m.nombre).split(",")[0].trim()).filter(Boolean))].join(" · ");
+  const apellidos = [...new Set((P.integrantes || []).map((m) => String(m.nombre).split(",").reverse().map((x) => x.trim()).join(" ")).filter(Boolean))].join(" · ");
   const valores = Object.assign({}, P, { nodoNombre: nodo.nombre, semanasPorSprint: P.semanasPorSprint || 3, apellidos: apellidos || "A completar" });
   $$("[data-bind]").forEach((el) => { el.textContent = valores[el.dataset.bind] ?? ""; });
   document.title = (P.nombre || "Smart Campus IoT") + " · Documentación";
