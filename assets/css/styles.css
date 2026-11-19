@@ -177,6 +177,9 @@
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
   .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
   .grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .grid-integrantes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 960px) { .grid-integrantes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .grid-integrantes { grid-template-columns: 1fr; } }
   .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 20px 28px; margin: 24px 0; }
   .meta div { font-size: 14px; line-height: 1.55; }
   .meta b { display: block; margin-bottom: 4px; font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); }
